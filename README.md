@@ -1,4 +1,4 @@
-## Проект "Персонализованные маршруты с AI" для хакатона в 2GIS
+## Проект "Персональные маршруты с AI" для хакатона в 2GIS
 
 ### Команда
 - Тимлид, Fullstack: **Калашников Иван** –> s21: gehnaeli | [GitHub](https://github.com/Steindvart) | [Telegram](https://t.me/ivank_t)
