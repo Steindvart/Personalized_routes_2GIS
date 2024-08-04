@@ -1,8 +1,26 @@
 ## Проект "Персональные маршруты с AI" для хакатона в 2GIS
 
 ### Команда
-- Тимлид, Fullstack: **Калашников Иван** –> s21: gehnaeli | [GitHub](https://github.com/Steindvart) | [Telegram](https://t.me/ivank_t)
--
+- Тимлид, Frontend/Fullstack: **Калашников Иван** –> s21: gehnaeli | [GitHub](https://github.com/Steindvart) | [Telegram](https://t.me/ivank_t)
+#### Frontend
+- **Греоргий Одияк** -> s21: riderkri | [Telegram](https://t.me/Jack_ONeill5)
+- (**Лиза Мурзакова**) -> s21:
+
+#### Backend
+- Head: (**Максим**)
+- **Егор Неделькин** -> s21: elenorau | [Telegram](https://t.me/egorgavai)
+- **Артём** -> s21: hoochsha | [Telegram](https://t.me/hoochsha)
+- **Сергей** -> s21: cadwynva | [Telegram](https://t.me/cadwynva)
+
+#### ML/AI
+- Head: **Татьяна Аксёнова** -> s21: ulrickro | [Telegram](https://t.me/tatavictorovna)
+- **Иван** -> s21: godardje | [Telegram](https://t.me/godardje)
+- (**Анна**)
+- (**Сергей Корчагин**)
+
+#### Data Bases
+- Head, Data Bases: **Дарья Решетникова** -> s21: braavoss | [Telegram](https://t.me/reshetnikova_d)
+- **Павел** -> s21: jaycemar | [Telegram](https://t.me/jaycemar)
 
 ## Описание
 ### Основа
