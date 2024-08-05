@@ -6,6 +6,7 @@
       :items=categoryItems
     >
     </liking-section>
+    <br/>
     <liking-section
       title="Стиль"
       :items=styleItems

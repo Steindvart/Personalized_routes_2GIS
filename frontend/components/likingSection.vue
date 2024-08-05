@@ -1,8 +1,7 @@
 <template>
-  <v-card class="mx-auto">
+  <v-card class="mx-auto" variant="flat">
     <v-card-text>
       <h2 class="text-h5 mb-2">{{ title }}</h2>
-
       <v-chip-group
         v-model="selectedItems"
         column
