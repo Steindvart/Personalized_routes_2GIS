@@ -7,8 +7,6 @@
 <script>
   import { load } from '@2gis/mapgl';
 
-  const config = useRuntimeConfig()
-
   export default {
     props: {
       center: {
@@ -26,7 +24,7 @@
       styles: {
         type: Object,
         default: () => {
-          return {width: '800px', height: '600px'}
+          return {width: '100%', height: '100%'}
         }
       }
     },
@@ -34,11 +32,12 @@
     methods: {
       async start() {
         const mapglAPI = await load();
+        const apiKey = useRuntimeConfig().public.tGisApiKey
 
         const map = new mapglAPI.Map('2GisMap', {
             center: this.center,
             zoom: this.zoom,
-            key: config.tGisApiKey,
+            key: apiKey,
         });
 
         const marker = new mapglAPI.Marker(map, {
