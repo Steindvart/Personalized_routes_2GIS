@@ -4,6 +4,8 @@
       <v-navigation-drawer
         expand-on-hover
         rail
+        floating
+        permanent
       >
         <v-list>
           <v-list-item
@@ -16,9 +18,15 @@
         <v-divider></v-divider>
 
         <v-list density="compact" nav>
-          <v-list-item prepend-icon="mdi-home" title="Главная" value="myfiles"></v-list-item>
-          <v-list-item prepend-icon="mdi-map" title="Карта" value="shared"></v-list-item>
-          <v-list-item prepend-icon="mdi-star" title="Избранное" value="starred"></v-list-item>
+          <nuxt-link to="/" exact class="custom-link">
+            <v-list-item prepend-icon="mdi-home" title="Главная"></v-list-item>
+          </nuxt-link>
+          <nuxt-link to="/map" exact class="custom-link">
+            <v-list-item prepend-icon="mdi-map" title="Карта"></v-list-item>
+          </nuxt-link>
+          <nuxt-link to="/liking" exact class="custom-link">
+            <v-list-item prepend-icon="mdi-star" title="Предпочтения"></v-list-item>
+          </nuxt-link>
         </v-list>
       </v-navigation-drawer>
        <v-main>
@@ -29,3 +37,14 @@
     </v-layout>
   </v-card>
 </template>
+
+<style scoped>
+.custom-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.custom-link:hover {
+  text-decoration: none;
+}
+</style>

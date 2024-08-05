@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="map-container">
     <t-gis-map
       :center="[82.89785, 54.98021]"
       :marker="[82.89785, 54.98021]"
@@ -19,3 +19,13 @@
     }
   }
 </script>
+
+
+<style scoped>
+.map-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+</style>
