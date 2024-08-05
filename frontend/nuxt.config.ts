@@ -13,6 +13,11 @@ export default defineNuxtConfig({
       ],
     },
   }
+  , runtimeConfig: {
+    public: {
+      tGisApiKey: process.env.TGIS_API_KEY
+    }
+  }
   , build: {
     transpile: ['vuetify'],
   }
