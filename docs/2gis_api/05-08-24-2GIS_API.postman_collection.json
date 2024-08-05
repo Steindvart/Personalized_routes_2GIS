@@ -1,20 +1,21 @@
 {
 	"info": {
-		"_postman_id": "8baf98fe-3f08-4da8-8990-9dd7ec791682",
+		"_postman_id": "84332516-128e-4365-8d74-5b70b29631d6",
 		"name": "2GIS_API",
-		"description": "API website: https://docs.2gis.com/ru\n",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "37442220"
+		"description": "- Public API: [https://docs.2gis.com/ru](https://docs.2gis.com/ru)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19221998",
+		"_collection_link": "https://crimson-shadow-908264.postman.co/workspace/2GIS-Hakaton~12c5c843-83ba-4f1a-9e87-2d5162c36378/collection/19221998-84332516-128e-4365-8d74-5b70b29631d6?action=share&source=collection_link&creator=19221998"
 	},
 	"item": [
 		{
-			"name": "Map_visual_integration",
+			"name": "Map",
 			"item": [
 				{
-					"name": "Static_map",
+					"name": "Static",
 					"item": [
 						{
-							"name": "s21_coordinates",
+							"name": "Static Map - all params",
 							"protocolProfileBehavior": {
 								"disableCookies": false
 							},
@@ -22,7 +23,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://static.maps.2gis.com/1.0?s=880x250&c=54.98096,82.90352&z=13&pt=54.98013,82.89725",
+									"raw": "https://static.maps.2gis.com/1.0?s=800x600&c=54.98013,82.89725&z=16&pt=54.98013,82.89725",
 									"protocol": "https",
 									"host": [
 										"static",
@@ -36,19 +37,23 @@
 									"query": [
 										{
 											"key": "s",
-											"value": "880x250"
+											"value": "800x600",
+											"description": "Size (WxH)"
 										},
 										{
 											"key": "c",
-											"value": "54.98096,82.90352"
+											"value": "54.98013,82.89725",
+											"description": "Coords"
 										},
 										{
 											"key": "z",
-											"value": "13"
+											"value": "16",
+											"description": "Zoom"
 										},
 										{
 											"key": "pt",
-											"value": "54.98013,82.89725"
+											"value": "54.98013,82.89725",
+											"description": "Marker"
 										}
 									]
 								}
@@ -56,18 +61,18 @@
 							"response": []
 						}
 					],
-					"description": "#### Return static map picture that can include lines, points, figures.\n\nТочка входа: static.maps.2gis.com.  \nВсе параметры передаются через query. Общий вид запроса:\n\nhttps://static.maps.2gis.com/1.0?s={size}&c={center}&z={zoom}&g={geojson}&pt={points}&ls={linestrings}&pn={polygons}\n\nВ ответ возвращается картинка в формате PNG или ошибка с описанием проблемы.\n\nFull informatiom: https://docs.2gis.com/ru/maps/others/static/reference\n\nExamples: https://docs.2gis.com/ru/maps/others/static/examples\n"
+					"description": "### Static map picture that can include lines, points, figures.\n\n- Точка входа: static.maps.2gis.com.\n- Все параметры передаются через query. Общий вид запроса:\n    \n    - [<code>https://static.maps.2gis.com/1.0?s={size}&amp;c={center}&amp;z={zoom}&amp;g={geojson}&amp;pt={points}&amp;ls={linestrings}&amp;pn={polygons}</code>](https://static.maps.2gis.com/1.0?s=%7Bsize%7D&c=%7Bcenter%7D&z=%7Bzoom%7D&g=%7Bgeojson%7D&pt=%7Bpoints%7D&ls=%7Blinestrings%7D&pn=%7Bpolygons%7D)\n        \n- В ответ возвращается картинка в формате PNG или ошибка с описанием проблемы.\n    \n\n### Подробнее\n\n- Full informatiom: [https://docs.2gis.com/ru/maps/others/static/reference](https://docs.2gis.com/ru/maps/others/static/reference)\n- Examples: [https://docs.2gis.com/ru/maps/others/static/examples](https://docs.2gis.com/ru/maps/others/static/examples)"
 				},
 				{
-					"name": "Interactive_map",
+					"name": "Interactive",
 					"item": [
 						{
-							"name": "MapGL_JS_API",
+							"name": "MapGL",
 							"item": [],
-							"description": "MapGL JS API — это JavaScript-библиотека, при помощи которой вы можете добавить карту 2GIS в ваше веб-приложение или сайт.\n\nhttps://docs.2gis.com/ru/mapgl/overview"
+							"description": "**MapGL JS API** — это JavaScript-библиотека, при помощи которой вы можете добавить карту 2GIS в ваше веб-приложение или сайт. Самый современный движок карт 2GIS, требуется _**платный**_ API-ключ.\n\n- [https://docs.2gis.com/ru/mapgl/overview](https://docs.2gis.com/ru/mapgl/overview)\n    \n\n### Полезное\n\n- Построение оптимального маршрута (пешком/авто) до 10 точек: [https://docs.2gis.com/ru/mapgl/examples/directions](https://docs.2gis.com/ru/mapgl/examples/directions)"
 						},
 						{
-							"name": "RasterJS_API",
+							"name": "RasterJS (Legacy)",
 							"item": [],
 							"description": "\n\nhttps://docs.2gis.com/ru/maps/others/rasterjs/overview"
 						}
@@ -81,19 +86,296 @@
 			"name": "Search",
 			"item": [
 				{
-					"name": "Places_API",
-					"item": [],
-					"description": "Places API выполняет поиск организаций, зданий и мест.\n\nПоиск может осуществляться:\n\nпо названию компании («ИП Голубёв»);\nпо сфере деятельности («рестораны» или «магазины музыкальных инструментов»);\nс геокритерием («цветы у Бауманской»);\nс атрибутами услуг и товаров («кафе с итальянской кухней» или «русская баня на дровах с бассейном»);\nпо телефону и сайту («667-02-99» или «grabli.ru»);\nпо ИНН («5405276278»);\nпо торговой лицензии;\nбез указания текстового запроса (в здании, в категории, в городе, поиск всех филиалов одной компании).\nЗапросы осуществляются методом GET, все необходимые параметры передаются в строке запроса. Ответы формируются в формате JSON. Для формирования подсказок при поиске объектов используйте [Suggest API](https://docs.2gis.com/ru/api/search/suggest/overview)\n\nhttps://docs.2gis.com/ru/api/search/places/overview\n\n"
+					"name": "Places",
+					"item": [
+						{
+							"name": "Items - query",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://catalog.api.2gis.com/3.0/items?q=Новосибирск кафе&type=branch&page_size=10&page=1&key={{API_KEY_0}}",
+									"protocol": "https",
+									"host": [
+										"catalog",
+										"api",
+										"2gis",
+										"com"
+									],
+									"path": [
+										"3.0",
+										"items"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "Новосибирск кафе"
+										},
+										{
+											"key": "type",
+											"value": "branch"
+										},
+										{
+											"key": "page_size",
+											"value": "10"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "key",
+											"value": "{{API_KEY_0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Items - location+radius (bad)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://catalog.api.2gis.com/3.0/items?q=кафе&radius=500&key={{API_KEY_0}}&location=54.980938, 82.897366",
+									"protocol": "https",
+									"host": [
+										"catalog",
+										"api",
+										"2gis",
+										"com"
+									],
+									"path": [
+										"3.0",
+										"items"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "кафе"
+										},
+										{
+											"key": "point",
+											"value": "54.980331%2C82.896683",
+											"disabled": true
+										},
+										{
+											"key": "radius",
+											"value": "500"
+										},
+										{
+											"key": "sort_point",
+											"value": "54.980331%2C82.896683",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": "distance",
+											"disabled": true
+										},
+										{
+											"key": "key",
+											"value": "{{API_KEY_0}}"
+										},
+										{
+											"key": "location",
+											"value": "54.980938, 82.897366"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Places API выполняет поиск организаций, зданий и мест.\n\n- [https://docs.2gis.com/ru/api/search/places/overview](https://docs.2gis.com/ru/api/search/places/overview)"
 				},
 				{
-					"name": "Geocoder_API",
-					"item": [],
-					"description": "Geocoder API позволяет определять координаты и получать сведения об объекте на карте по его адресу (прямое геокодирование) и наоборот, определять адрес объекта на карте по его координатам (обратное геокодирование).\n\nЗапросы осуществляются методом GET, все необходимые параметры передаются в строке запроса. Ответы формируются только в формате JSON.\n\nhttps://docs.2gis.com/ru/api/search/geocoder/overview"
-				},
-				{
-					"name": "Categories_API",
-					"item": [],
-					"description": "Когда пользователь хочет получить детальную информацию по одной интересующей его компании, он ищет её по названию.\n\nКогда пользователь ещё не знает, какая компания ему нужна, он сначала изучает список компаний в интересующей его категории. В этом случае Categories API предоставляет информацию о категориях.\n\n### Типы категорий:\nВ Categories API представлены два типа категорий:\n\nобъединяющая категория — объект, который соответствует обобщённой сфере деятельности и содержит ссылки на дочерние категории. Дочерние категории соответствуют более конкретным направлениям деятельности в этой сфере.\nкатегория — объект, который соответствует определённой сфере деятельности.\n\nhttps://docs.2gis.com/ru/api/search/categories/overview"
+					"name": "Categories",
+					"item": [
+						{
+							"name": "Region id - NSK",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://catalog.api.2gis.com/2.0/region/search?q=Новосибирск&key={{API_KEY_0}}",
+									"protocol": "https",
+									"host": [
+										"catalog",
+										"api",
+										"2gis",
+										"com"
+									],
+									"path": [
+										"2.0",
+										"region",
+										"search"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "Новосибирск"
+										},
+										{
+											"key": "key",
+											"value": "{{API_KEY_0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "General rubrics - NSK",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://catalog.api.2gis.com/2.0/catalog/rubric/list?region_id=1&key={{API_KEY_0}}",
+									"protocol": "https",
+									"host": [
+										"catalog",
+										"api",
+										"2gis",
+										"com"
+									],
+									"path": [
+										"2.0",
+										"catalog",
+										"rubric",
+										"list"
+									],
+									"query": [
+										{
+											"key": "region_id",
+											"value": "1"
+										},
+										{
+											"key": "key",
+											"value": "{{API_KEY_0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Rubrics query - NSK",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://catalog.api.2gis.com/2.0/catalog/rubric/search?q=кофе&region_id=1&key={{API_KEY_0}}",
+									"protocol": "https",
+									"host": [
+										"catalog",
+										"api",
+										"2gis",
+										"com"
+									],
+									"path": [
+										"2.0",
+										"catalog",
+										"rubric",
+										"search"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "кофе"
+										},
+										{
+											"key": "region_id",
+											"value": "1"
+										},
+										{
+											"key": "key",
+											"value": "{{API_KEY_0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "General rubrics with sub - NSK",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://catalog.api.2gis.com/2.0/catalog/rubric/list?region_id=1&fields=items.rubrics&key={{API_KEY_0}}",
+									"protocol": "https",
+									"host": [
+										"catalog",
+										"api",
+										"2gis",
+										"com"
+									],
+									"path": [
+										"2.0",
+										"catalog",
+										"rubric",
+										"list"
+									],
+									"query": [
+										{
+											"key": "region_id",
+											"value": "1"
+										},
+										{
+											"key": "fields",
+											"value": "items.rubrics"
+										},
+										{
+											"key": "key",
+											"value": "{{API_KEY_0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Rubrics by parent - NSK",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://catalog.api.2gis.com/2.0/catalog/rubric/list?parent_id=2&region_id=1&key={{API_KEY_0}}",
+									"protocol": "https",
+									"host": [
+										"catalog",
+										"api",
+										"2gis",
+										"com"
+									],
+									"path": [
+										"2.0",
+										"catalog",
+										"rubric",
+										"list"
+									],
+									"query": [
+										{
+											"key": "parent_id",
+											"value": "2"
+										},
+										{
+											"key": "region_id",
+											"value": "1"
+										},
+										{
+											"key": "key",
+											"value": "{{API_KEY_0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "- [https://docs.2gis.com/ru/api/search/categories/overview](https://docs.2gis.com/ru/api/search/categories/overview)\n    \n\nCategories API предоставляет информацию о категориях. Категория — это группа, объединяющая компании по сферам деятельности.\n\n---\n\n## Как это работает\n\nКогда пользователь хочет получить детальную информацию по одной интересующей его компании, он ищет её по названию.\n\nКогда пользователь ещё не знает, какая компания ему нужна, он сначала изучает список компаний в интересующей его категории. В этом случае Categories API предоставляет информацию о категориях."
 				}
 			],
 			"description": "Searching APIs\n"
@@ -149,6 +431,35 @@
 				}
 			],
 			"description": "Navigation APIs"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_KEY_0",
+			"value": "333f2738-8ebc-482c-8f34-d438836ca445",
+			"type": "string"
 		}
 	]
 }
