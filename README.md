@@ -7,7 +7,7 @@
 - (**Лиза Мурзакова**) -> s21:
 
 #### Backend
-- Head: **Максим Томилов** -> s21: martaree | [Telegram](https://t.me/comradmax) | [GitHub](https://github.com/ziggozoggo)
+- Head: (**Максим**)
 - **Егор Неделькин** -> s21: elenorau | [Telegram](https://t.me/egorgavai) | [GitHub](https://github.com/xenonlly)
 - **Артём** -> s21: hoochsha | [Telegram](https://t.me/hoochsha)
 - **Сергей** -> s21: cadwynva | [Telegram](https://t.me/cadwynva)
