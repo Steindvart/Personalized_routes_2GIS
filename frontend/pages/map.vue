@@ -37,7 +37,9 @@ export default {
     const fetchData = async () => {
       try {
         const apiKey = useRuntimeConfig().public.tGisApiKey
-        const response = await fetch(`https://catalog.api.2gis.com/3.0/items?q=Новосибирск кафе&type=branch&page_size=10&page=1&key=${apiKey}`)
+        const url = 'https://catalog.api.2gis.com/3.0/items';
+        const query = `q=Новосибирск кафе&type=branch&page_size=10&page=1&key=${apiKey}`
+        const response = await fetch(`${url}?${query}`)
         const data = await response.json()
         items.value = data.result.items
       } catch (error) {
