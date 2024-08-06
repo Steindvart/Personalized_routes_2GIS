@@ -18,7 +18,6 @@
 - Head: **Татьяна Аксёнова** -> s21: ulrickro | [Telegram](https://t.me/tatavictorovna) | [GitHub](https://github.com/aksenovatv)
 - **Иван** -> s21: godardje | [Telegram](https://t.me/godardje) | [GitHub](https://github.com/romanov-ivan-al)
 - **Анна** -> s21: eoralia | [Telegram](https://t.me/TheGreatestGirlEver)
-- (**Сергей Корчагин**)
 
 #### Data Bases
 - Head, Data Bases: **Дарья Решетникова** -> s21: braavoss | [Telegram](https://t.me/reshetnikova_d) | [GitHub](https://github.com/reDasha)
