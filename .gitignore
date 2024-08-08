@@ -1,4 +1,11 @@
+# Virtual environment
+.venv/
+venv/
 .env
 
+# Backend
+__pycache__/
+
+# Frontend
 .nuxt/
 node_modules/
