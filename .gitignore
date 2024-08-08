@@ -1,4 +1,8 @@
+# Virtual environment
+.venv/
+venv/
 .env
 
+# Frontend
 .nuxt/
 node_modules/

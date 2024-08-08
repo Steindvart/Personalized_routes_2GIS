@@ -1,0 +1,6 @@
+# Temp
+__pycache__/
+
+# Virtual environment
+venv/
+.venv/
