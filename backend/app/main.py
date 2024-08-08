@@ -1,4 +1,4 @@
-from app import app
+from config import app
 from api.api import api_router
 
 
