@@ -2,74 +2,74 @@ from pydantic import BaseModel
 
 
 class UserBase(BaseModel):
-    name: str
-    email: str
+  name: str
+  email: str
 
 
 class UserCreate(UserBase):
-    password: str
+  password: str
 
 
 class User(UserBase):
-    id: int
+  id: int
 
-    class Config:
-        orm_mode = True
+  class Config:
+    orm_mode = True
 
 
 class CategoryBase(BaseModel):
-    name: str
+  name: str
 
 
 class Category(CategoryBase):
-    id: int
+  id: int
 
-    class Config:
-        orm_mode = True
+  class Config:
+    orm_mode = True
 
 
 class FieldBase(BaseModel):
-    name: str
-    units: str
+  name: str
+  units: str
 
 
 class Field(FieldBase):
-    id: int
+  id: int
 
-    class Config:
-        orm_mode = True
+  class Config:
+    orm_mode = True
 
 
 class FieldValueBase(BaseModel):
-    field_id: int
-    value: str
+  field_id: int
+  value: str
 
 
 class FieldValue(FieldValueBase):
-    id: int
+  id: int
 
-    class Config:
-        orm_mode = True
+  class Config:
+    orm_mode = True
 
 
 class CategoryFieldBase(BaseModel):
-    category_id: int
-    field_id: int
+  category_id: int
+  field_id: int
 
 
 class CategoryField(CategoryFieldBase):
-    pass
+  pass
 
 
 class PreferenceBase(BaseModel):
-    user_id: int
-    category_id: int
-    rating: float
-    options: str
+  user_id: int
+  category_id: int
+  rating: float
+  options: str
 
 
 class Preference(PreferenceBase):
-    id: int
+  id: int
 
-    class Config:
-        orm_mode = True
+  class Config:
+    orm_mode = True
