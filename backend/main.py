@@ -1,5 +1,7 @@
-from app.api.api import router
-from app.config import app
+from app.api.routes import router as api_router
+from config import app
 
+import logging as log
 
-app.include_router(router, prefix="/api")
+log.debug('app run')
+app.include_router(api_router, prefix="/api")
