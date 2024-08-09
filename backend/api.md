@@ -18,4 +18,4 @@ Users
 Маршруты
 | Resourse   | Method  | Comment |
 | --------   | ------- | ------- |
-| /users/:id/routes | GET  | Запрос на формирование маршрута, текущие предпочтения в body json
+| /users/:id/routes | POST  | Запрос на формирование маршрута, текущие предпочтения в body json
