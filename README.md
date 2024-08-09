@@ -9,18 +9,18 @@
 - **Лиза Мурзакова** -> s21: regeniae | [Telegram](https://t.me/loco151416)
 
 #### Backend
-- Head: (**Максим**)
+- Head: (**Максим**) -> s21: martaree | [Telegram](https://t.me/comradmax) | [GitHub](https://github.com/ziggozoggo)
 - **Егор Неделькин** -> s21: elenorau | [Telegram](https://t.me/egorgavai) | [GitHub](https://github.com/xenonlly)
 - **Артём** -> s21: hoochsha | [Telegram](https://t.me/hoochsha)
 - **Сергей** -> s21: cadwynva | [Telegram](https://t.me/cadwynva)
 
+#### Data Bases (Backend)
+- Head: **Дарья Решетникова** -> s21: braavoss | [Telegram](https://t.me/reshetnikova_d) | [GitHub](https://github.com/reDasha)
+- **Павел** -> s21: jaycemar | [Telegram](https://t.me/jaycemar) | [GitHub](https://github.com/jaycemarpeer)
+
 #### ML/AI
 - Head: **Татьяна Аксёнова** -> s21: ulrickro | [Telegram](https://t.me/tatavictorovna) | [GitHub](https://github.com/aksenovatv)
 - **Иван** -> s21: godardje | [Telegram](https://t.me/godardje) | [GitHub](https://github.com/romanov-ivan-al)
-
-#### Data Bases
-- Head, Data Bases: **Дарья Решетникова** -> s21: braavoss | [Telegram](https://t.me/reshetnikova_d) | [GitHub](https://github.com/reDasha)
-- **Павел** -> s21: jaycemar | [Telegram](https://t.me/jaycemar) | [GitHub](https://github.com/jaycemarpeer)
 
 ## Описание
 ### Основа
@@ -42,7 +42,7 @@
 ## Технологии
 ### Backend
 - Python
-- Django
+- FastAPI
 - PostgreSQL
 
 ### ML/AI
@@ -53,7 +53,7 @@
 
 ### Frontend
 - Vue.js
-- Nuxt.js
+- Nuxt.js + Vuetify
 
 ## Польза
 ### Для людей
@@ -76,4 +76,3 @@
 
 #### Примеры
 - Кафе "Good Coffee" становится партнером проекта. Алгоритм учитывает это кафе при построении маршрутов для пользователей, которые ищут уютные места для завтрака или обеда. Кафе видит увеличение потока новых клиентов, а пользователи получают дополнительные скидки и акции, предложенные кафе.
-
