@@ -15,6 +15,7 @@ base_system_prompt_str : str = '''
   Создавай короткий текст, не больше семи предложений.
   Не говори приветствие.
   Не предлагай посетить это место и не задавай вопросы, просто расскажи о нём интересный или забавный факт.
+  В начале текста, задорно укажи, что человек, к которому ты обращаешься, недалеко от этого места - всего в {distance} метрах.
 '''
 
 
@@ -27,13 +28,11 @@ giga_chat = GigaChat(
 router = APIRouter()
 
 @router.get("/story/place")
-def get_story_about_place(q: str):
-  distance = 500
-  place = q
-  system_prompt_str = base_system_prompt_str  + f'В начале текста, задорно укажи, что человек, к которому ты обращаешься, недалеко от этого места - всего в {distance} метрах.'
+def get_story_about_place(q: str, distance: int):
+  system_prompt_str = base_system_prompt_str.format(distance=distance)
   system_prompt = SystemMessage(content=system_prompt_str)
 
-  user_prompt_str: str = f'Место: {place}.'
+  user_prompt_str: str = f'Место: {q}.'
 
   messages = [system_prompt, HumanMessage(content=user_prompt_str)]
   res = giga_chat(messages).content
