@@ -18,12 +18,11 @@ base_system_prompt_str : str = '''
   В начале текста, задорно укажи, что человек, к которому ты обращаешься, недалеко от этого места - всего в {distance} метрах.
 '''
 
-
+# IMPROVE - enrich it by adding a search engine (Google, Yandex, etc.)
 giga_chat = GigaChat(
   credentials=GIGA_CHAT_API_TOKEN,
   verify_ssl_certs=False
 )
-
 
 router = APIRouter()
 
