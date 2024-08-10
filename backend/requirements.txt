@@ -7,7 +7,10 @@
 aiohappyeyeballs==2.3.5
     # via aiohttp
 aiohttp==3.10.1
-    # via gigachain
+    # via
+    #   gigachain
+    #   langchain
+    #   langchain-community
 aiosignal==1.3.1
     # via aiohttp
 alembic==1.13.2
@@ -36,8 +39,12 @@ colorama==0.4.6
     #   click
     #   tqdm
     #   uvicorn
+dataclasses-json==0.6.7
+    # via langchain-community
 distro==1.9.0
     # via openai
+environs==11.0.0
+    # via -r requirements.in
 fastapi==0.112.0
     # via -r requirements.in
 frozenlist==1.4.1
@@ -79,29 +86,57 @@ idna==3.7
 jiter==0.5.0
     # via openai
 jsonpatch==1.33
-    # via gigachain-core
+    # via
+    #   gigachain-core
+    #   langchain-core
 jsonpointer==3.0.0
     # via jsonpatch
+langchain==0.2.12
+    # via langchain-community
+langchain-community==0.2.11
+    # via -r requirements.in
+langchain-core==0.2.29
+    # via
+    #   langchain
+    #   langchain-community
+    #   langchain-text-splitters
+langchain-text-splitters==0.2.2
+    # via langchain
 langsmith==0.1.98
     # via
     #   gigachain
     #   gigachain-core
+    #   langchain
+    #   langchain-community
+    #   langchain-core
 mako==1.3.5
     # via alembic
 markupsafe==2.1.5
     # via mako
+marshmallow==3.21.3
+    # via
+    #   dataclasses-json
+    #   environs
 multidict==6.0.5
     # via
     #   aiohttp
     #   yarl
+mypy-extensions==1.0.0
+    # via typing-inspect
 numpy==1.26.4
-    # via gigachain
+    # via
+    #   gigachain
+    #   langchain
+    #   langchain-community
 openai==1.40.1
     # via -r requirements.in
 orjson==3.10.6
     # via langsmith
 packaging==24.1
-    # via gigachain-core
+    # via
+    #   gigachain-core
+    #   langchain-core
+    #   marshmallow
 psycopg2==2.9.9
     # via -r requirements.in
 pydantic==2.8.2
@@ -110,20 +145,29 @@ pydantic==2.8.2
     #   gigachain
     #   gigachain-core
     #   gigachat
+    #   langchain
+    #   langchain-core
     #   langsmith
     #   openai
 pydantic-core==2.20.1
     # via pydantic
 python-dotenv==1.0.1
-    # via uvicorn
+    # via
+    #   environs
+    #   uvicorn
 pyyaml==6.0.2
     # via
     #   gigachain
     #   gigachain-core
+    #   langchain
+    #   langchain-community
+    #   langchain-core
     #   uvicorn
 requests==2.32.3
     # via
     #   gigachain
+    #   langchain
+    #   langchain-community
     #   langsmith
 sniffio==1.3.1
     # via
@@ -134,12 +178,17 @@ sqlalchemy==2.0.32
     # via
     #   alembic
     #   gigachain
+    #   langchain
+    #   langchain-community
 starlette==0.37.2
     # via fastapi
 tenacity==8.5.0
     # via
     #   gigachain
     #   gigachain-core
+    #   langchain
+    #   langchain-community
+    #   langchain-core
 tqdm==4.66.5
     # via openai
 typing-extensions==4.12.2
@@ -147,10 +196,14 @@ typing-extensions==4.12.2
     #   alembic
     #   fastapi
     #   gigachain-core
+    #   langchain-core
     #   openai
     #   pydantic
     #   pydantic-core
     #   sqlalchemy
+    #   typing-inspect
+typing-inspect==0.9.0
+    # via dataclasses-json
 urllib3==2.2.2
     # via requests
 uvicorn[standard]==0.30.5
