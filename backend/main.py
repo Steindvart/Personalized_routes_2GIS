@@ -1,5 +1,5 @@
 from app.api.routes import router as api_router
-from config import app
+from app.config import app
 
 import logging as log
 
