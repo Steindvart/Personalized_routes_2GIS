@@ -15,6 +15,7 @@ log.basicConfig(filename='app.log',
                 encoding='utf-8'
 )
 
+T_GIS_API_KEY = env('T_GIS_API_KEY')
 GIGA_CHAT_API_TOKEN = env('GIGA_CHAT_API_TOKEN')
 
 app = FastAPI()
