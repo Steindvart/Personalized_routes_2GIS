@@ -2,6 +2,8 @@ import requests
 from typing import Optional
 from enum import Enum
 
+import logging as log
+
 CATALOG_API_URL: str = 'https://catalog.api.2gis.com'
 PLACES_API_ENDPOINT: str = '/3.0/items'
 
@@ -24,6 +26,7 @@ class tGisApi:
 
   def _make_request(self, url: str, params: dict) -> dict:
     """Внутренний метод для выполнения HTTP-запросов к API."""
+    log.debug(url)
     response = requests.get(url, params=params)
     response.raise_for_status()
     return response.json()
@@ -58,6 +61,13 @@ class tGisApi:
       page += 1
 
     return items
+
+
+  def _get_additional_fields_list(self) -> list:
+    return [
+      'items.flags', 'items.full_address_name', 'items.schedule',
+      'items.external_content', 'items.reviews', 'items.attribute_groups'
+    ]
 
 
   # ----- Getting city ------
@@ -128,13 +138,48 @@ class tGisApi:
 
 
   # ----- Places/Items ------
-  def search_places(self, search: str, type: PlaceType = PlaceType.ORG) -> Optional[list]:
-    """Получить список мест/заведений города по поисковому запросу."""
+  def search_places(self, city: str, search: str, type: PlaceType = PlaceType.ORG) -> Optional[list]:
+    """Получить список мест/заведений указанного города по поисковому запросу."""
     endpoint = PLACES_API_ENDPOINT
 
     params = {
-      'q': search,
+      'q': f'{city} {search}',
       'type': str(type)
     }
 
     return self._get_catalog_all_items(endpoint, params)
+
+
+  def get_place(self, place_id: int, additional_info: bool = False) -> Optional[list]:
+    """Получить информацию о месте/заведении по его ID."""
+    endpoint = f'{PLACES_API_ENDPOINT}/byid'
+
+    params = {
+      'id': place_id,
+    }
+
+    if (additional_info):
+      params['fields'] = ','.join(self._get_additional_fields_list())
+
+    items = self._get_catalog_all_items(endpoint, params)
+    if (not items): return None
+
+    return items[0]
+
+
+  def get_place_reviews(self, place_id: int) -> Optional[dict]:
+    """Получить рейтинг места/заведения по его ID."""
+
+    place = self.get_place(place_id, True)
+    if (not place): return None
+
+    return place.get('reviews', {})
+
+
+  def get_place_attribute_groups(self, place_id: int) -> Optional[list]:
+    """Получить группы дополнительных атрибутов места/заведения по его ID."""
+
+    place = self.get_place(place_id, True)
+    if (not place): return None
+
+    return place.get('attribute_groups', {})
