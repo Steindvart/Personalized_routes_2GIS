@@ -1,14 +1,26 @@
 import requests
 from typing import Optional
+from enum import Enum
 
 CATALOG_API_URL: str = 'https://catalog.api.2gis.com'
-DEFAUL_PAGE_SIZE: int = 50
+PLACES_API_ENDPOINT: str = '/3.0/items'
+
+class PlaceType(Enum):
+  ORG = 'branch'
+  ATTRACTION = 'attraction'
+  BUILDING = 'building'
+
+  def __str__(self):
+    return self.value
+
+# TODO - type for fields param
+
 
 class tGisApi:
-
   # ----- Common ------
   def __init__(self, api_key: str) -> None:
     self.api_key = api_key
+
 
   def _make_request(self, url: str, params: dict) -> dict:
     """Внутренний метод для выполнения HTTP-запросов к API."""
@@ -16,12 +28,36 @@ class tGisApi:
     response.raise_for_status()
     return response.json()
 
+
   def _make_catalog_request(self, endpoint: str, params: dict) -> dict:
     url = f"{CATALOG_API_URL}{endpoint}"
     params['key'] = self.api_key
-    params['page_size'] = DEFAUL_PAGE_SIZE
 
     return self._make_request(url, params)
+
+
+  def _get_catalog_all_items(self, endpoint: str, params: dict) -> Optional[list]:
+    """Получить элементы со всех страниц пагинации данных."""
+    items = []
+    total_items = 0
+    page = 1
+
+    while True:
+      params['page'] = page
+      data = self._make_catalog_request(endpoint, params)
+
+      result: dict = data.get('result', {})
+      current_items: list = result.get('items', [])
+      total_items: int = result.get('total', 0)
+
+      items.extend(current_items)
+
+      if len(items) >= total_items:
+        break
+
+      page += 1
+
+    return items
 
 
   # ----- Getting city ------
@@ -39,13 +75,6 @@ class tGisApi:
 
 
   # ----- Rubrics of city/region ------
-  def _get_city_rubrics(self, endpoint: str, params: dict) -> Optional[list]:
-    data = self._make_catalog_request(endpoint, params)
-
-    rubrics = data.get('result', {}).get('items', [])
-    return rubrics
-
-
   def list_city_general_rubrics(self, city_id: int, sub_rubrics: bool = False) -> Optional[list]:
     """Получить список общих рубрик города."""
     endpoint = "/2.0/catalog/rubric/list"
@@ -53,7 +82,7 @@ class tGisApi:
     params = {"region_id": city_id}
     if (sub_rubrics): params['fields'] = 'items.rubrics'
 
-    return self._get_city_rubrics(endpoint, params)
+    return self._get_catalog_all_items(endpoint, params)
 
 
   def list_city_rubrics_by_parent(self, city_id: int, parent_id: int, sub_rubrics: bool = False) -> Optional[list]:
@@ -66,20 +95,20 @@ class tGisApi:
     }
     if (sub_rubrics): params['fields'] = 'items.rubrics'
 
-    return self._get_city_rubrics(endpoint, params)
+    return self._get_catalog_all_items(endpoint, params)
 
 
-  def search_city_rubrics(self, city_id: int, q: str, sub_rubrics: bool = False) -> Optional[list]:
+  def search_city_rubrics(self, city_id: int, search: str, sub_rubrics: bool = False) -> Optional[list]:
     """Получить список рубрик города по поисковому запросу."""
     endpoint = "/2.0/catalog/rubric/search"
 
     params = {
       "region_id": city_id,
-      "q": q
+      "q": search
     }
     if (sub_rubrics): params['fields'] = 'items.rubrics'
 
-    return self._get_city_rubrics(endpoint, params)
+    return self._get_catalog_all_items(endpoint, params)
 
 
   def get_city_rubric_info(self, city_id: int, rubric_id: int, sub_rubrics: bool = False) -> Optional[dict]:
@@ -92,7 +121,20 @@ class tGisApi:
     }
     if (sub_rubrics): params['fields'] = 'items.rubrics'
 
-    data = self._get_city_rubrics(endpoint, params)
-    if (not data): return None
+    items = self._get_catalog_all_items(endpoint, params)
+    if (not items): return None
 
-    return data[0]
+    return items[0]
+
+
+  # ----- Places/Items ------
+  def search_places(self, search: str, type: PlaceType = PlaceType.ORG) -> Optional[list]:
+    """Получить список мест/заведений города по поисковому запросу."""
+    endpoint = PLACES_API_ENDPOINT
+
+    params = {
+      'q': search,
+      'type': str(type)
+    }
+
+    return self._get_catalog_all_items(endpoint, params)
