@@ -183,3 +183,5 @@ class tGisApi:
     if (not place): return None
 
     return place.get('attribute_groups', {})
+
+  # TODO - add search place by coordinates, radius. When 2gis repair this tools
