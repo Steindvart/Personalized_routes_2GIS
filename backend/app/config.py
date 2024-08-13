@@ -2,10 +2,10 @@ from fastapi import FastAPI
 
 from environs import Env
 
-import logging as log
-
 env = Env()
 env.read_env()
+
+import logging as log
 
 # NOTE - configure immediately after logging import is IMPORTANT!
 log.basicConfig(filename='app.log',
