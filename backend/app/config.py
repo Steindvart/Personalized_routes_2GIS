@@ -18,3 +18,9 @@ log.basicConfig(filename='app.log',
 GIGA_CHAT_API_TOKEN = env('GIGA_CHAT_API_TOKEN')
 
 app = FastAPI()
+
+DB_HOST = env("DB_HOST")
+DB_PORT = env("DB_PORT")
+DB_NAME = env("DB_NAME")
+DB_USER = env("DB_USER")
+DB_PASS = env("DB_PASS")
