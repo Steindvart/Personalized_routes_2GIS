@@ -4,9 +4,10 @@
     <div class="map-container">
       <t-gis-map
         :center="[82.89785, 54.98021]"
-        :marker="[82.89785, 54.98021]"
         :styles="{width: '100%', height: '100%'}"
         :zoom="12"
+        :enableCircle="true"
+        :radius="1500"
       ></t-gis-map>
     </div>
     <h2>Запрос к справочнику 2GIS о Новосибирских кофейнях</h2>
