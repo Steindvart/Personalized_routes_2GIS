@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from environs import Env
 
@@ -18,10 +19,20 @@ log.basicConfig(filename='app.log',
 T_GIS_API_KEY = env('T_GIS_API_KEY')
 GIGA_CHAT_API_TOKEN = env('GIGA_CHAT_API_TOKEN')
 
-app = FastAPI()
-
 DB_HOST = env("DB_HOST")
 DB_PORT = env("DB_PORT")
 DB_NAME = env("DB_NAME")
 DB_USER = env("DB_USER")
 DB_PASS = env("DB_PASS")
+
+
+app = FastAPI()
+
+# Настройка CORS
+app.add_middleware(
+  CORSMiddleware,
+  allow_origins=["*"],  # Разрешить все источники. Вы можете указать конкретные домены, например: ["http://localhost:3000"]
+  allow_credentials=True,
+  allow_methods=["*"],  # Разрешить все HTTP методы: GET, POST, PUT, DELETE и т.д.
+  allow_headers=["*"],  # Разрешить все заголовки
+)
