@@ -51,6 +51,17 @@
         color="primary"
       ></v-switch>
 
+      <!-- Сообщение об ошибке -->
+      <v-alert
+        v-if="error"
+        type="error"
+        dismissible
+        v-model="error"
+        class="mt-3"
+      >
+        {{ errorMessage }}
+      </v-alert>
+
       <!-- Кнопка "Начать путешествие" по центру внизу элементов -->
       <div class="start-journey-container">
         <v-btn color="primary" @click="startJourney" class="start-journey-btn" variant="outlined" rounded="xl" size="x-large" block>
@@ -67,10 +78,10 @@ import axios from 'axios'
 export default {
   props: {
     point: {
-        type: Array,
-        default: () => [0, 0],
-      },
+      type: Array,
+      default: () => [0, 0],
     },
+  },
 
   data() {
     return {
@@ -81,6 +92,8 @@ export default {
       totalTime: '2 часа',
       totalTimeOptions: ['1 час', '2 часа', '3 часа', '4 часа', 'Более 4 часов'],
       wantSomethingNew: false,
+      error: false,
+      errorMessage: ''
     }
   },
   methods: {
@@ -95,13 +108,21 @@ export default {
       }
     },
     async startJourney() {
-      let totalTimeMinutes = 60;
+      // Проверка, была ли выбрана начальная точка
+      if (this.point[0] === 0 && this.point[1] === 0) {
+        this.error = true
+        this.errorMessage = 'Пожалуйста, выберите начальную точку на карте перед началом путешествия.'
+        return
+      } else {
+        this.error = false
+      }
 
-      if (this.totalTime == '2 часа') totalTimeMinutes = totalTimeMinutes * 2;
-      else if (this.totalTime == '3 часа') totalTimeMinutes = totalTimeMinutes * 3;
-      else if (this.totalTime == '4 часа') totalTimeMinutes = totalTimeMinutes * 4;
-      else if (this.totalTime == 'Более 4 часов') totalTimeMinutes = totalTimeMinutes * 6;
+      let totalTimeMinutes = 60
 
+      if (this.totalTime == '2 часа') totalTimeMinutes = totalTimeMinutes * 2
+      else if (this.totalTime == '3 часа') totalTimeMinutes = totalTimeMinutes * 3
+      else if (this.totalTime == '4 часа') totalTimeMinutes = totalTimeMinutes * 4
+      else if (this.totalTime == 'Более 4 часов') totalTimeMinutes = totalTimeMinutes * 6
 
       const routePreferences = {
         activities: this.activities,
@@ -110,20 +131,19 @@ export default {
         wantSomethingNew: this.wantSomethingNew,
         point: {
           lat: this.point[0],
-          lon: this.point[1]
-        }
+          lon: this.point[1],
+        },
       }
 
       try {
         // Отправка данных на сервер
-        // #TODO - make as Vuex with axios base URL
         const response = await axios.post('http://localhost:8000/api/generate-journey', routePreferences)
         console.log('Маршрут сгенерирован:', response.data)
       } catch (error) {
         console.error('Ошибка при генерации маршрута:', error)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
