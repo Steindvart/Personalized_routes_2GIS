@@ -48,6 +48,7 @@
         v-model="wantSomethingNew"
         label="Хочу чего-то нового"
         inset
+        color="primary"
       ></v-switch>
     </v-card-text>
 
