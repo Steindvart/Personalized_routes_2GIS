@@ -15,6 +15,13 @@ class PlaceType(Enum):
   def __str__(self):
     return self.value
 
+
+class tGisPoint():
+  def __init__(self, lat: float, lon: float) -> None:
+    self.lat: float = lat
+    self.lon: float = lon
+
+
 # TODO - type for fields param
 
 
@@ -150,6 +157,21 @@ class tGisApi:
     return self._get_catalog_all_items(endpoint, params)
 
 
+  def search_places_by_point(self, search: str, point: tGisPoint, radius: int = 500, type: PlaceType = PlaceType.ORG) -> Optional[list]:
+    """Получить список мест/заведений в указанной локации по поисковому запросу."""
+    endpoint = PLACES_API_ENDPOINT
+
+    params = {
+      'q': f'{search}',
+      'type': str(type),
+      'lon': point.lon,
+      'lat': point.lat,
+      'radius': radius
+    }
+
+    return self._get_catalog_all_items(endpoint, params)
+
+
   def get_place(self, place_id: int, additional_info: bool = False) -> Optional[list]:
     """Получить информацию о месте/заведении по его ID."""
     endpoint = f'{PLACES_API_ENDPOINT}/byid'
@@ -183,5 +205,3 @@ class tGisApi:
     if (not place): return None
 
     return place.get('attribute_groups', {})
-
-  # TODO - add search place by coordinates, radius. When 2gis repair this tools
