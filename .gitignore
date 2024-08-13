@@ -6,6 +6,7 @@ venv/
 # Backend
 __pycache__/
 app.log
+_test.py
 
 # Frontend
 .nuxt/
