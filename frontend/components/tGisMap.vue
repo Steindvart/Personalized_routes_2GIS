@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <div id="2GisMap" :style="styles"></div>
-  </div>
+  <div id="2GisMap" :style="styles" class="map"></div>
 </template>
 
 <script>
@@ -93,3 +91,10 @@
     }
   }
 </script>
+
+<style scoped>
+.map {
+  width: 100%;
+  height: 100%;
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" max-width="600" subtitle="Укажите активности, средний чек и другие текущие предпочтения" outlined>
+  <v-card class="mx-auto" max-width="600" subtitle="Укажи активности, средний чек и другие текущие предпочтения" outlined>
     <template v-slot:title>
       <span class="font-weight-black">Настройка маршрута</span>
     </template>
@@ -50,12 +50,14 @@
         inset
         color="primary"
       ></v-switch>
-    </v-card-text>
 
-    <!-- Кнопка "Начать путешествие" в правом нижнем углу -->
-    <v-card-actions class="justify-end">
-      <v-btn color="primary" @click="startJourney" class="start-journey-btn" variant="outlined">Начать путешествие</v-btn>
-    </v-card-actions>
+      <!-- Кнопка "Начать путешествие" по центру внизу элементов -->
+      <div class="start-journey-container">
+        <v-btn color="primary" @click="startJourney" class="start-journey-btn" variant="outlined" rounded="xl" size="x-large" block>
+          Начать путешествие
+        </v-btn>
+      </div>
+    </v-card-text>
   </v-card>
 </template>
 
@@ -76,7 +78,7 @@ export default {
   },
   methods: {
     addActivity() {
-      if (this.activities.length < 6) {
+      if (this.activities.length < 4) {
         this.activities.push('')
       }
     },
@@ -122,16 +124,20 @@ export default {
 }
 
 .add-activity-btn {
-  width: calc(100% - 120px); /* 100% ширины минус отступы и ширина иконки */
+  width: calc(100% - 120px);
   margin-top: -10px;
   margin-left: 65px;
   text-transform: none;
 }
 
+.start-journey-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 .start-journey-btn {
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
+  text-transform: none;
 }
 
 .v-card {
