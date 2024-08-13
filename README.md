@@ -3,7 +3,7 @@
 Генерация маршрутов для прогулки или небольшого путешествия, на основе постоянных и текущих предпочтений пользователя. С интерактивными комментариями об интересных местах поблизости в реальном времени.
 
 ### Команда
-- Тимлид, Frontend/Fullstack: **Калашников Иван** –> s21: gehnaeli | [Telegram](https://t.me/ivank_t) | [GitHub](https://github.com/Steindvart)
+- Тимлид, Fullstack: **Калашников Иван** –> s21: gehnaeli | [Telegram](https://t.me/ivank_t) | [GitHub](https://github.com/Steindvart)
 #### Frontend
 - **Георгий Одияк** -> s21: riderkri | [Telegram](https://t.me/Jack_ONeill5) | [GitHub](https://github.com/Georgiy-JO)
 - **Лиза Мурзакова** -> s21: regeniae | [Telegram](https://t.me/loco151416)
