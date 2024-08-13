@@ -25,10 +25,10 @@
         type: Boolean,
         default: false
       },
-      // selectedPoint: {
-      //   type: Array,
-      //   default: () => [0, 0],
-      // },
+      selectedPoint: {
+        type: Array,
+        default: () => [0, 0],
+      },
       styles: {
         type: Object,
         default: () => {
@@ -58,7 +58,8 @@
 
         this.map.on('click', (event) => {
           const clickCoords = event.lngLat;
-          this.selectedPoint = clickCoords;
+          this.selectedPoint[1] = clickCoords[0];
+          this.selectedPoint[0] = clickCoords[1];
           console.log('Click coords:', clickCoords);
 
           if (this.marker) {

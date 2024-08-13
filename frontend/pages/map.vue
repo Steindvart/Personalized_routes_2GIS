@@ -1,6 +1,8 @@
 <template>
   <div>
     <h2>Пример интеграции карты 2GIS</h2>
+    <h3>Выбранные координаты</h3>
+    <p>Широта: {{ selectedPoint[1] }}, Долгота: {{ selectedPoint[0] }}</p>
     <div class="map-container">
       <t-gis-map
         :center="[82.89785, 54.98021]"
@@ -8,6 +10,7 @@
         :zoom="12"
         :enableCircle="true"
         :radius="1500"
+        :selectedPoint="selectedPoint"
       ></t-gis-map>
     </div>
     <h2>Запрос к справочнику 2GIS о Новосибирских кофейнях</h2>
@@ -34,6 +37,7 @@ export default {
 
   setup() {
     const items = ref([])
+    const selectedPoint = ref([0, 0])
 
     const fetchData = async () => {
       try {
@@ -53,7 +57,8 @@ export default {
     })
 
     return {
-      items
+      items,
+      selectedPoint
     }
   }
 }
