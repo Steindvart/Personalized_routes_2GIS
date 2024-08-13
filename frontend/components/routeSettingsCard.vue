@@ -60,7 +60,6 @@
 
 <script>
 import axios from 'axios'
-import { useStorage } from '@vueuse/core'
 
 export default {
   data() {
@@ -101,12 +100,10 @@ export default {
         wantSomethingNew: this.wantSomethingNew,
       }
 
-      // Сохранение данных в localStorage с использованием vueuse/core
-      useStorage('routePreferences', routePreferences)
-
       try {
         // Отправка данных на сервер
-        const response = await axios.post('/api/generate-route', routePreferences)
+        // #TODO - make as Vuex with axios base URL
+        const response = await axios.post('http://localhost:8000/api/generate-journey', routePreferences)
         console.log('Маршрут сгенерирован:', response.data)
       } catch (error) {
         console.error('Ошибка при генерации маршрута:', error)
