@@ -30,7 +30,7 @@ def generate_routes(cur_preferences: CurrentPreferences):
     {"step": 3, "place": "Новосибирск, Сан Сити - многофункциональный центр, ​Площадь Карла Маркса, 7"},
   ]
 
-  return {"status": "success", "data": generated_route}
+  return {"status": "success", "data": generated_route, "echo": cur_preferences}
 
 
 # Эндпоинты для работы с предпочтениями

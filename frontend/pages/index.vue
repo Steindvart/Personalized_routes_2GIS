@@ -3,7 +3,11 @@
     <h1>Умные путешествия</h1>
     <br/>
     <div class="content-wrapper">
-      <route-settings-card class="settings-card"></route-settings-card>
+      <route-settings-card
+        class="settings-card"
+        :point="selectedPoint"
+      >
+      </route-settings-card>
       <v-card class="map-container" subtitle="Укажи маркер на карте – *тык*" outlined>
         <template v-slot:title>
           <span class="font-weight-black">Место от которого будем искать</span>

@@ -79,6 +79,7 @@ class CurrentPreferences(BaseModel):
   averageCheck: int
   totalTime: int
   wantSomethingNew: bool
+  point: dict
 
 
 # TODO - Journey schema, list of places for route. As main result of route generating

@@ -29,7 +29,7 @@
       <v-select
         v-model="averageCheck"
         :items="averageCheckOptions"
-        label="Средний чек"
+        label="Максимальный средний чек"
         prepend-icon="mdi-cash"
         class="mt-10"
       ></v-select>
@@ -65,13 +65,20 @@
 import axios from 'axios'
 
 export default {
+  props: {
+    point: {
+        type: Array,
+        default: () => [0, 0],
+      },
+    },
+
   data() {
     return {
       activities: ['Поесть'],
       activityOptions: ['Поесть', 'Погулять', 'Выпить', 'Шопинг'],
-      averageCheck: null,
-      averageCheckOptions: [500, 1000, 1500, 2000, '>2500'],
-      totalTime: null,
+      averageCheck: 1500,
+      averageCheckOptions: [500, 1000, 1500, 2000, 3000],
+      totalTime: '2 часа',
       totalTimeOptions: ['1 час', '2 часа', '3 часа', '4 часа', 'Более 4 часов'],
       wantSomethingNew: false,
     }
@@ -101,6 +108,10 @@ export default {
         averageCheck: this.averageCheck,
         totalTime: totalTimeMinutes,
         wantSomethingNew: this.wantSomethingNew,
+        point: {
+          lat: this.point[0],
+          lon: this.point[1]
+        }
       }
 
       try {
