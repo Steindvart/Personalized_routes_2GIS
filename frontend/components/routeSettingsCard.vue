@@ -21,7 +21,7 @@
       </div>
 
       <!-- Кнопка добавления активности -->
-      <v-btn @click="addActivity" class="add-activity-btn" outlined>
+      <v-btn @click="addActivity" class="add-activity-btn" outlined :disabled="activities.length >= 4">
         Добавить активность
       </v-btn>
 
