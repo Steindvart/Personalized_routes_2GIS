@@ -2,7 +2,7 @@
   <div>
     <h2>Пример интеграции карты 2GIS</h2>
     <h3>Выбранные координаты</h3>
-    <p>Широта: {{ selectedPoint[1] }}, Долгота: {{ selectedPoint[0] }}</p>
+    <p>Широта: {{ selectedPoint[0] }}, Долгота: {{ selectedPoint[1] }}</p>
     <div class="map-container">
       <t-gis-map
         :center="[82.89785, 54.98021]"

@@ -58,8 +58,8 @@
 
         this.map.on('click', (event) => {
           const clickCoords = event.lngLat;
-          this.selectedPoint[1] = clickCoords[0];
-          this.selectedPoint[0] = clickCoords[1];
+          this.selectedPoint[0] = clickCoords[0];
+          this.selectedPoint[1] = clickCoords[1];
           console.log('Click coords:', clickCoords);
 
           if (this.marker) {
