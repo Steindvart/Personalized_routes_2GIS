@@ -78,6 +78,7 @@ class CurrentPreferences(BaseModel):
   activities: list[str]
   averageCheck: int
   totalTime: int
+  wayType: str
   wantSomethingNew: bool
   point: dict
 

@@ -43,6 +43,15 @@
         class="mt-3"
       ></v-select>
 
+      <!-- Способ передвижения -->
+      <v-select
+        v-model="wayType"
+        :items="wayTypeOptions"
+        label="Способ передвижения"
+        prepend-icon="mdi-road"
+        class="mt-3"
+      ></v-select>
+
       <!-- Хочу чего-то нового -->
       <v-switch
         v-model="wantSomethingNew"
@@ -91,6 +100,8 @@ export default {
       averageCheckOptions: [500, 1000, 1500, 2000, 3000],
       totalTime: '2 часа',
       totalTimeOptions: ['1 час', '2 часа', '3 часа', '4 часа', 'Более 4 часов'],
+      wayType: 'Общественный транспорт',
+      wayTypeOptions: ['Пешком', 'Автомобиль', 'Общественный транспорт'],
       wantSomethingNew: false,
       error: false,
       errorMessage: ''
@@ -129,6 +140,7 @@ export default {
         averageCheck: this.averageCheck,
         totalTime: totalTimeMinutes,
         wantSomethingNew: this.wantSomethingNew,
+        wayType: this.wayType,
         point: {
           lat: this.point[0],
           lon: this.point[1],

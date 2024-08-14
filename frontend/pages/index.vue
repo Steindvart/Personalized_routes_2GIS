@@ -15,7 +15,7 @@
         <v-card-text>
           <t-gis-map
             :center="[82.89785, 54.98021]"
-            :styles="{width: '100%', height: '765px'}"
+            :styles="{width: '100%', height: '870px'}"
             :zoom="12"
             :selectedPoint="selectedPoint"
           ></t-gis-map>
