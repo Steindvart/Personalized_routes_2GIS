@@ -74,6 +74,13 @@ class GlobalPreference(GlobalPreferenceBase):
     orm_mode = True
 
 
+class GlobalPreferenceSimple(BaseModel):
+  food: list[str]
+  walk: list[str]
+  fun: list[str]
+  style: list[str]
+
+
 class CurrentPreferences(BaseModel):
   activities: list[str]
   averageCheck: int
