@@ -16,7 +16,7 @@ class PlaceType(Enum):
     return self.value
 
 
-class tGisPoint():
+class GisPoint():
   def __init__(self, lat: float, lon: float) -> None:
     self.lat: float = lat
     self.lon: float = lon
@@ -25,7 +25,7 @@ class tGisPoint():
 # TODO - type for fields param
 
 
-class tGisApi:
+class GisApi:
   # ----- Common ------
   def __init__(self, api_key: str) -> None:
     self.api_key = api_key
@@ -157,7 +157,7 @@ class tGisApi:
     return self._get_catalog_all_items(endpoint, params)
 
 
-  def search_places_by_point(self, search: str, point: tGisPoint, radius: int = 500, type: PlaceType = PlaceType.ORG) -> Optional[list]:
+  def search_places_by_point(self, search: str, point: GisPoint, radius: int = 500, type: PlaceType = PlaceType.ORG) -> Optional[list]:
     """Получить список мест/заведений в указанной локации по поисковому запросу."""
     endpoint = PLACES_API_ENDPOINT
 
