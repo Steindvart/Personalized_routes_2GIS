@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 
-
 class UserBase(BaseModel):
   name: str
   email: str
@@ -61,15 +60,28 @@ class CategoryField(CategoryFieldBase):
   pass
 
 
-class PreferenceBase(BaseModel):
+class GlobalPreferenceBase(BaseModel):
   user_id: int
   category_id: int
   rating: float
   options: str
 
 
-class Preference(PreferenceBase):
+class GlobalPreference(GlobalPreferenceBase):
   id: int
 
   class Config:
     orm_mode = True
+
+
+class CurrentPreferences(BaseModel):
+  activities: list[str]
+  averageCheck: int
+  totalTime: int
+  wantSomethingNew: bool
+  point: dict
+
+
+# TODO - Journey schema, list of places for route. As main result of route generating
+class Journey(BaseModel):
+  places: list

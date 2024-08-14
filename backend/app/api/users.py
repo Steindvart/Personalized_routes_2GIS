@@ -35,7 +35,7 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
   return db_user
 
 
-@router.get("/{user_id}/preferences", response_model=List[schemas.Preference])
+@router.get("/{user_id}/preferences", response_model=List[schemas.GlobalPreference])
 def read_user_preferences(user_id: int, db: Session = Depends(get_db)):
   preferences = db.query(models.Preference).filter(models.Preference.user_id == user_id).all()
   if not preferences:
