@@ -95,7 +95,7 @@ export default {
   data() {
     return {
       activities: ['Поесть'],
-      activityOptions: ['Поесть', 'Погулять', 'Выпить', 'Шопинг'],
+      activityOptions: ['Поесть', 'Погулять', 'Развлечься', 'Шопинг'],
       averageCheck: 1500,
       averageCheckOptions: [500, 1000, 1500, 2000, 3000],
       totalTime: '2 часа',

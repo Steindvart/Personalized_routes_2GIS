@@ -3,15 +3,14 @@
     <v-card-text>
       <h2 class="text-h5 mb-2">{{ title }}</h2>
       <v-chip-group
-        v-model="selectedItems"
+        v-model="localSelectedItems"
         column
         multiple
       >
         <v-chip
           v-for="(item, index) in items"
           :key="index"
-          :text="item.text"
-          :value="item.value"
+          :value="item"
           variant="outlined"
           filter
         >
@@ -24,12 +23,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      selectedItems: [],
-    };
-  },
-
   props: {
     title: {
       type: String,
@@ -38,6 +31,20 @@ export default {
     items: {
       type: Array,
       default: () => []
+    },
+    modelValue: {
+      type: Array,
+      default: () => []
+    }
+  },
+  computed: {
+    localSelectedItems: {
+      get() {
+        return this.modelValue;
+      },
+      set(value) {
+        this.$emit('update:modelValue', value);
+      }
     }
   }
 }
