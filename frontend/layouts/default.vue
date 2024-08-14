@@ -24,7 +24,7 @@
           <nuxt-link to="/map" exact class="custom-link">
             <v-list-item prepend-icon="mdi-map" title="Карта"></v-list-item>
           </nuxt-link>
-          <nuxt-link to="/liking" exact class="custom-link">
+          <nuxt-link to="/preferences" exact class="custom-link">
             <v-list-item prepend-icon="mdi-star" title="Предпочтения"></v-list-item>
           </nuxt-link>
         </v-list>

@@ -6,7 +6,7 @@ from .users import router as users_router
 from .guide import router as guide_router
 
 from ..models import Preference as PreferenceModel
-from ..schemas import GlobalPreference, CurrentPreferences
+from ..schemas import GlobalPreference, CurrentPreferences, GlobalPreferenceSimple
 
 from ..db import get_db
 
@@ -34,10 +34,18 @@ def generate_routes(cur_preferences: CurrentPreferences):
 
 
 # Эндпоинты для работы с предпочтениями
-@router.post("/preferences/", response_model=GlobalPreference)
+@router.post("/preferences", response_model=GlobalPreference)
 def create_preference(user_id: int, category_id: int, rating: float, options: str, db: Session = Depends(get_db)):
   db_preference = PreferenceModel(user_id=user_id, category_id=category_id, rating=rating, options=options)
   db.add(db_preference)
   db.commit()
   db.refresh(db_preference)
   return db_preference
+
+
+@router.post("/preferences/simple")
+def update_simple_preferences(preferences: GlobalPreferenceSimple, db: Session = Depends(get_db)):
+
+  # Обработка и сохранение в базу данных/объект в RAM
+
+  return {"status": "success", "preferences": preferences}
