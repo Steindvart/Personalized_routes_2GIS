@@ -17,6 +17,7 @@
             :center="[82.89785, 54.98021]"
             :styles="{width: '100%', height: '870px'}"
             :zoom="14"
+            :enableMarker="false"
           ></t-gis-map>
         </v-card-text>
       </v-card>
