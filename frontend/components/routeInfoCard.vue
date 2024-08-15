@@ -61,8 +61,8 @@ export default {
             color = 'blue';
             break;
           case 'food':
-            icon = 'mdi-food';
-            color = 'red-lighten-1';
+            icon = 'mdi-coffee';
+            color = 'red-lighten-2';
             break;
           case 'walk':
             icon = 'mdi-walk';
@@ -70,7 +70,7 @@ export default {
             break;
           case 'fun':
             icon = 'mdi-party-popper';
-            color = 'purple-lighten-1';
+            color = 'purple-lighten-2';
             break;
           default:
             icon = 'mdi-help-circle';
