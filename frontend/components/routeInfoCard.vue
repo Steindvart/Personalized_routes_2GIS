@@ -36,34 +36,12 @@
 
 <script>
 export default {
-  data: () => ({
-    items: [
-      {
-        color: 'red-lighten-2',
-        icon: 'mdi-star',
-        name: 'Стартовая точка',
-        desc: ""
-      },
-      {
-        color: 'red-lighten-2',
-        icon: 'mdi-star',
-        name: 'Кафе "Плюшка"',
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-      },
-      {
-        color: 'purple-lighten-2',
-        icon: 'mdi-book-variant',
-        name: 'Парк "Красивый"',
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-      },
-      {
-        color: 'green-lighten-1',
-        icon: 'mdi-airballoon',
-        name: 'Караоке "Певун"',
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-      },
-    ],
-  }),
+  props: {
+    items: {
+      type: Array,
+      default: () => [0, 0],
+    }
+  },
 }
 </script>
 

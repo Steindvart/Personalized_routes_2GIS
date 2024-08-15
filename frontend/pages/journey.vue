@@ -5,7 +5,7 @@
     <div class="content-wrapper">
       <route-info-card
         class="settings-card"
-        :point="selectedPoint"
+        :items="items"
       >
       </route-info-card>
       <v-card class="map-container" outlined>
@@ -17,7 +17,6 @@
             :center="[82.89785, 54.98021]"
             :styles="{width: '100%', height: '870px'}"
             :zoom="12"
-            :selectedPoint="selectedPoint"
           ></t-gis-map>
         </v-card-text>
       </v-card>
@@ -29,7 +28,6 @@
 
 <script>
 import routeInfoCard from '@/components/routeInfoCard'
-import { ref } from 'vue'
 
 export default {
   name: 'routePage',
@@ -37,11 +35,34 @@ export default {
     routeInfoCard
   },
 
-  setup() {
-    const selectedPoint = ref([0, 0])
-
-    return { selectedPoint }
-  }
+  data: () => ({
+    items: [
+      {
+        color: 'red-lighten-2',
+        icon: 'mdi-star',
+        name: 'Стартовая точка',
+        desc: ""
+      },
+      {
+        color: 'red-lighten-2',
+        icon: 'mdi-star',
+        name: 'Кафе "Плюшка"',
+        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      },
+      {
+        color: 'purple-lighten-2',
+        icon: 'mdi-book-variant',
+        name: 'Парк "Красивый"',
+        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      },
+      {
+        color: 'green-lighten-1',
+        icon: 'mdi-airballoon',
+        name: 'Караоке "Певун"',
+        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      },
+    ],
+  }),
 }
 </script>
 
