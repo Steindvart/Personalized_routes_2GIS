@@ -1,86 +1,74 @@
 <template>
-  <v-container class="full-width-container">
-    <h1>Умные путешествия</h1>
-    <br/>
-    <div class="content-wrapper">
-      <route-settings-card
-        class="settings-card"
-        :point="selectedPoint"
-      >
-      </route-settings-card>
-      <v-card class="map-container" subtitle="Укажи маркер на карте – *тык*" outlined>
-        <template v-slot:title>
-          <span class="font-weight-black">Место от которого будем искать</span>
-        </template>
-        <v-card-text>
-          <t-gis-map
-            :center="[82.89785, 54.98021]"
-            :styles="{width: '100%', height: '870px'}"
-            :zoom="12"
-            :selectedPoint="selectedPoint"
-          ></t-gis-map>
-        </v-card-text>
-      </v-card>
-    </div>
-    <br/>
+  <v-container class="full-width-container text-center">
+    <v-row class="justify-center align-center" style="height: 100vh;">
+      <v-col cols="12" md="8">
+        <v-card outlined>
+          <v-card-text>
+            <h1 class="headline font-weight-bold">Умные путешествия</h1>
+            <p class="description">
+              Персональные маршруты, созданные на основе ваших постоянных и текущих предпочтений.
+              Настройте ваши постоянные предпочтения, чтобы получать персонализированные рекомендации
+              и создавайте маршруты, учитывающие ваше настроение и условия в данный момент.
+            </p>
+            <v-divider class="my-8"></v-divider>
+            <v-row justify="center" class="mb-4">
+              <v-btn
+                color="primary"
+                @click="goToPreferences"
+                class="mr-4"
+                rounded="xl"
+                size="large"
+                large
+              >
+                Настроить постоянные предпочтения
+              </v-btn>
+              <v-btn color="green" @click="goToRouteGenerator" rounded="xl" size="large" large>Настроить маршрут</v-btn>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
-
 <script>
-import routeSettingsCard from '@/components/routeSettingsCard'
-import { ref } from 'vue'
-
 export default {
-  name: 'indexPage',
-  components: {
-    routeSettingsCard
-  },
-
-  setup() {
-    const selectedPoint = ref([0, 0])
-
-    return { selectedPoint }
+  methods: {
+    goToPreferences() {
+      this.$router.push('/preferences');
+    },
+    goToRouteGenerator() {
+      this.$router.push('/generator');
+    }
   }
 }
 </script>
 
 <style scoped>
 .full-width-container {
-  max-width: 100% !important; /* Убираем ограничение по ширине */
-  width: 100%; /* Занимаем всю ширину экрана */
-  padding: 0; /* Убираем лишние отступы */
+  max-width: 100%;
+  padding: 0;
+  background-color: #f5f5f5;
 }
 
-.content-wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: stretch;
+.headline {
+  font-size: 2.3rem;
+  color: #424242;
 }
 
-.settings-card {
-  flex: 1 1 60%; /* Гибкий размер, 60% ширины от родителя */
-  margin-right: 16px; /* Отступ между картой и настройками */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+.description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 20px 0;
+  color: #757575;
 }
 
-.map-container {
-  flex: 2 1 70%; /* Гибкий размер, 70% ширины от родителя */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  height: 100%; /* Занимает всю высоту родителя */
-  display: flex; /* Гарантируем, что вложенные элементы будут растягиваться */
-  flex-direction: column;
+v-divider {
+  margin: 20px 0;
 }
 
-.map-container > .v-card-text {
-  flex-grow: 1; /* Внутренний контент растягивается */
-  padding: 0; /* Убираем лишние отступы */
-}
-
-.t-gis-map {
-  width: 100%;
-  height: 100%;
+v-btn {
+  font-size: 1rem;
+  text-transform: none;
 }
 </style>

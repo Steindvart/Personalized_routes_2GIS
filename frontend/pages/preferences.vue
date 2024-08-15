@@ -26,12 +26,23 @@
     <v-btn
       color="primary"
       @click="savePreferences"
-      class="save-btn"
+      class="save-btn mr-2"
       variant="outlined"
       rounded="xl"
       size="large"
     >
       Сохранить
+    </v-btn>
+    <v-btn
+      color="green"
+      class="save-btn"
+      variant="outlined"
+      rounded="xl"
+      size="large"
+      large
+      @click="goToRouteGenerator"
+    >
+      Настроить маршрут
     </v-btn>
   </div>
 </template>
@@ -85,6 +96,10 @@ export default {
   },
 
   methods: {
+    goToRouteGenerator() {
+      this.savePreferences();
+      this.$router.push('/generator');
+    },
     async savePreferences() {
       const preferences = {
         food: this.selectedFood.map(item => item.text),
