@@ -16,7 +16,7 @@
           <t-gis-map
             :center="[82.89785, 54.98021]"
             :styles="{width: '100%', height: '870px'}"
-            :zoom="12"
+            :zoom="14"
           ></t-gis-map>
         </v-card-text>
       </v-card>
@@ -38,26 +38,22 @@ export default {
   data: () => ({
     items: [
       {
-        color: 'red-lighten-2',
-        icon: 'mdi-star',
+        type: 'start',
         name: 'Стартовая точка',
         desc: ""
       },
       {
-        color: 'red-lighten-2',
-        icon: 'mdi-star',
+        type: 'food',
         name: 'Кафе "Плюшка"',
         desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
       },
       {
-        color: 'purple-lighten-2',
-        icon: 'mdi-book-variant',
+        type: 'walk',
         name: 'Парк "Красивый"',
         desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
       },
       {
-        color: 'green-lighten-1',
-        icon: 'mdi-airballoon',
+        type: 'fun',
         name: 'Караоке "Певун"',
         desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
       },

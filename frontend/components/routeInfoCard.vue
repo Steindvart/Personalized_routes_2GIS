@@ -6,7 +6,7 @@
     <v-card-text>
       <v-timeline density="compact" side="end" align="start">
         <v-timeline-item
-          v-for="(item, i) in items"
+          v-for="(item, i) in itemsWithIconsAndColors"
           :key="i"
           :dot-color="item.color"
           :icon="item.icon"
@@ -39,16 +39,56 @@ export default {
   props: {
     items: {
       type: Array,
-      default: () => [0, 0],
-    }
+      required: true,
+    },
+  },
+  computed: {
+    itemsWithIconsAndColors() {
+      return this.items.map(item => {
+        let icon = '';
+        let color = '';
+
+        switch (item.type) {
+          case 'start':
+            icon = 'mdi-flag-checkered';
+            color = 'blue';
+            break;
+          case 'food':
+            icon = 'mdi-food';
+            color = 'red-lighten-1';
+            break;
+          case 'walk':
+            icon = 'mdi-walk';
+            color = 'green-lighten-1';
+            break;
+          case 'fun':
+            icon = 'mdi-music-note';
+            color = 'purple-lighten-1';
+            break;
+          default:
+            icon = 'mdi-help-circle';
+            color = 'grey';
+        }
+
+        return {
+          ...item,
+          icon,
+          color,
+        };
+      });
+    },
+  },
+  methods: {
+    startJourney() {
+      console.log("Перенастройка маршрута", this.items);
+    },
   },
 }
 </script>
 
 <style scoped>
 .limited-width {
-  max-width: 400px; /* Устанавливаем максимальную ширину для текста */
-  margin: 0 auto; /* Центрируем текст */
+  max-width: 400px;
+  margin: 0 auto;
 }
-
 </style>
