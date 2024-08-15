@@ -46,21 +46,21 @@ export default {
 
 <style scoped>
 .full-width-container {
-  max-width: 100%;
   padding: 0;
   background-color: #f5f5f5;
 }
 
 .headline {
   font-size: 2.3rem;
-  color: #424242;
+  color: #222222;
 }
 
 .description {
   font-size: 1.1rem;
   line-height: 1.6;
   margin: 20px 0;
-  color: #757575;
+  color: #6b6b6b;
+  font-family: 'Roboto', sans-serif;
 }
 
 v-divider {
