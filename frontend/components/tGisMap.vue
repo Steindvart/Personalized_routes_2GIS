@@ -19,6 +19,10 @@
         type: Number,
         default: 500,
       },
+      enableMarker: {
+        type: Boolean,
+        default: true
+      },
       enableCircle: {
         type: Boolean,
         default: false
@@ -60,12 +64,14 @@
           this.selectedPoint[1] = clickCoords[1];
           console.log('Click coords:', clickCoords);
 
-          if (this.marker) {
-            this.marker.setCoordinates(clickCoords);
-          } else {
-            this.marker = new mapglAPI.Marker(this.map, {
-              coordinates: clickCoords,
-            });
+          if (this.enableMarker) {
+            if (this.marker) {
+              this.marker.setCoordinates(clickCoords);
+            } else {
+              this.marker = new mapglAPI.Marker(this.map, {
+                coordinates: clickCoords,
+              });
+            }
           }
 
           if (this.enableCircle) {

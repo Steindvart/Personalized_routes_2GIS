@@ -21,11 +21,14 @@
           <nuxt-link to="/" exact class="custom-link">
             <v-list-item prepend-icon="mdi-home" title="Главная"></v-list-item>
           </nuxt-link>
-          <nuxt-link to="/map" exact class="custom-link">
-            <v-list-item prepend-icon="mdi-map" title="Карта"></v-list-item>
+          <nuxt-link to="/generator" exact class="custom-link">
+            <v-list-item prepend-icon="mdi-map" title="Начать путешествие"></v-list-item>
           </nuxt-link>
           <nuxt-link to="/preferences" exact class="custom-link">
             <v-list-item prepend-icon="mdi-star" title="Предпочтения"></v-list-item>
+          </nuxt-link>
+          <nuxt-link to="/map" exact class="custom-link">
+            <v-list-item prepend-icon="mdi-map" title="Карта"></v-list-item>
           </nuxt-link>
         </v-list>
       </v-navigation-drawer>
