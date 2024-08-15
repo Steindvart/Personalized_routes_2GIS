@@ -15,10 +15,10 @@
         >
           <v-card>
             <v-card-title :class="['text-h6', `bg-${item.color}`]">
-              Lorem Ipsum Dolor
+              {{ item.name }}
             </v-card-title>
-            <v-card-text class="bg-white text--primary">
-              <p>Lorem ipsum dolor sit amet, no nam oblique veritus.</p>
+            <v-card-text class="bg-white text--primary limited-width" v-if="item.desc.length != 0">
+              <p>{{ item.desc }}</p>
             </v-card-text>
           </v-card>
         </v-timeline-item>
@@ -41,20 +41,36 @@ export default {
       {
         color: 'red-lighten-2',
         icon: 'mdi-star',
+        name: 'Стартовая точка',
+        desc: ""
+      },
+      {
+        color: 'red-lighten-2',
+        icon: 'mdi-star',
+        name: 'Кафе "Плюшка"',
+        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
       },
       {
         color: 'purple-lighten-2',
         icon: 'mdi-book-variant',
+        name: 'Парк "Красивый"',
+        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
       },
       {
         color: 'green-lighten-1',
         icon: 'mdi-airballoon',
-      },
-      {
-        color: 'indigo-lighten-2',
-        icon: 'mdi-layers-triple',
+        name: 'Караоке "Певун"',
+        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
       },
     ],
   }),
 }
 </script>
+
+<style scoped>
+.limited-width {
+  max-width: 400px; /* Устанавливаем максимальную ширину для текста */
+  margin: 0 auto; /* Центрируем текст */
+}
+
+</style>
