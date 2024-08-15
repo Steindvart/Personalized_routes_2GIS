@@ -15,11 +15,6 @@ import logging as log
 log.debug('app run')
 app.include_router(api_router, prefix="/api")
 
-exception_handlers = {
-    NotFoundException: not_found_exception_handler,
-    BadRequestException: bad_request_exception_handler,
-    Exception: generic_exception_handler,
-}
-
-for exc, handler in exception_handlers.items():
-    app.add_exception_handler(exc, handler)
+app.add_exception_handler(NotFoundException, not_found_exception_handler)
+app.add_exception_handler(BadRequestException, bad_request_exception_handler)
+app.add_exception_handler(Exception, generic_exception_handler)
