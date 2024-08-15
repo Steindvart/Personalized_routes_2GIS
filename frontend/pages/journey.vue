@@ -8,7 +8,7 @@
         :items="items"
       >
       </route-info-card>
-      <v-card class="map-container" outlined>
+      <v-card class="map-container" subtitle="Оптимальный путь вашего мини-путешествия :)" outlined>
         <template v-slot:title>
           <span class="font-weight-black">Навигация</span>
         </template>
@@ -36,30 +36,42 @@ export default {
   },
 
   data: () => ({
+    // #TODO - getting from server
     items: [
       {
         type: 'start',
         name: 'Стартовая точка',
         desc: "",
-        rating: null
+        rating: null,
+        point: [82.89821282451898, 54.98018285867834]
       },
       {
         type: 'food',
         name: 'Кафе "Плюшка"',
         desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        rating: 4.3
+        rating: 4.3,
+        point: [82.90568931600684, 54.983789907034286]
       },
       {
         type: 'walk',
-        name: 'Парк "Красивый"',
+        name: 'Сквер им. Сибиряков-Гвардейцев',
         desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        rating: null
+        rating: null,
+        point: [82.8904133554231, 54.97939911412844]
       },
       {
         type: 'fun',
         name: 'Караоке "Певун"',
         desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        rating: 4.5
+        rating: 4.5,
+        point: [82.9115555313026, 54.99266076608315]
+      },
+      {
+        type: 'walk',
+        name: 'Парк "Арена"',
+        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        rating: null,
+        point: [82.92598203704318, 54.99680146158085]
       },
     ],
   }),
