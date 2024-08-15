@@ -1,6 +1,12 @@
 <template>
   <div class="preferences-group-container">
     <h1>Постоянные предпочтения</h1>
+    <p class="description mt-3">
+      ✅ В каждой категории выбери то, что тебе обычно больше нравится. Это будут твои "постоянные предпочтения", которые будут учитываться при каждой генерации маршрута путешествия.
+    </p>
+    <p class="description mt-3">
+      😉 Но, не переживай, ты их можешь изменить в любой момент.
+    </p>
     <preferences-section
       title="Еда"
       :items="foodItems"
@@ -26,12 +32,23 @@
     <v-btn
       color="primary"
       @click="savePreferences"
-      class="save-btn"
+      class="save-btn mr-2"
       variant="outlined"
       rounded="xl"
       size="large"
     >
       Сохранить
+    </v-btn>
+    <v-btn
+      color="green"
+      class="save-btn"
+      variant="outlined"
+      rounded="xl"
+      size="large"
+      large
+      @click="goToRouteGenerator"
+    >
+      Настроить маршрут
     </v-btn>
   </div>
 </template>
@@ -85,6 +102,10 @@ export default {
   },
 
   methods: {
+    goToRouteGenerator() {
+      this.savePreferences();
+      this.$router.push('/generator');
+    },
     async savePreferences() {
       const preferences = {
         food: this.selectedFood.map(item => item.text),
@@ -106,3 +127,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.description {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #383838;
+  font-family: 'Roboto', sans-serif;
+  max-width: 800px;
+}
+
+</style>

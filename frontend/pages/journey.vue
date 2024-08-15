@@ -29,11 +29,13 @@
 
 <script>
 import routeInfoCard from '@/components/routeInfoCard'
+import tGisMap from '@/components/tGisMap'
 
 export default {
   name: 'routePage',
   components: {
-    routeInfoCard
+    routeInfoCard,
+    tGisMap
   },
 
   data: () => ({
