@@ -17,8 +17,15 @@
             <v-card-title :class="['text-h6', `bg-${item.color}`]">
               {{ item.name }}
             </v-card-title>
-            <v-card-text class="bg-white text--primary limited-width" v-if="item.desc.length != 0">
-              <p>{{ item.desc }}</p>
+            <v-card-text v-if="item.desc" class="bg-white text--primary limited-width">
+              <p class="description">{{ item.desc }}</p>
+              <v-chip v-if="item.rating"
+                append-icon="mdi-star"
+                class="mt-2"
+                color="orange"
+              >
+                {{ item.rating }}
+              </v-chip>
             </v-card-text>
           </v-card>
         </v-timeline-item>
@@ -62,7 +69,7 @@ export default {
             color = 'green-lighten-1';
             break;
           case 'fun':
-            icon = 'mdi-music-note';
+            icon = 'mdi-party-popper';
             color = 'purple-lighten-1';
             break;
           default:
@@ -89,6 +96,13 @@ export default {
 <style scoped>
 .limited-width {
   max-width: 400px;
-  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
 }
+
+.description {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
 </style>
