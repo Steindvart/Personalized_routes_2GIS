@@ -142,8 +142,8 @@ export default {
         wantSomethingNew: this.wantSomethingNew,
         wayType: this.wayType,
         point: {
-          lat: this.point[0],
-          lon: this.point[1],
+          lon: this.point[0],
+          lat: this.point[1],
         },
       }
 
