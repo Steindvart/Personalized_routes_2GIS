@@ -31,11 +31,11 @@ class StylePref(str, Enum):
 
 
 class GlobalPreferenceSimple(BaseModel):
-  food: list[FoodPref]
-  foodStyle: list[FoodStylePref]
-  walk: list[WalkPref]
-  fun: list[FunPref]
-  style: list[StylePref]
+  food: list[str]
+  foodStyle: list[str]
+  walk: list[str]
+  fun: list[str]
+  style: list[str]
 
 
 single_preferences_obj: GlobalPreferenceSimple = GlobalPreferenceSimple(

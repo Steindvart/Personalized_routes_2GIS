@@ -72,8 +72,3 @@ class GlobalPreference(GlobalPreferenceBase):
 
   class Config:
     orm_mode = True
-
-
-# TODO - Journey schema, list of places for route. As main result of route generating
-class Journey(BaseModel):
-  places: dict
