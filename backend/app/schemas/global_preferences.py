@@ -36,3 +36,12 @@ class GlobalPreferenceSimple(BaseModel):
   walk: list[WalkPref]
   fun: list[FunPref]
   style: list[StylePref]
+
+
+single_preferences_obj: GlobalPreferenceSimple = GlobalPreferenceSimple(
+    food=[],
+    foodStyle=[],
+    walk=[],
+    fun=[],
+    style=[]
+)
