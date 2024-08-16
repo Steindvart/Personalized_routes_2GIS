@@ -14,7 +14,7 @@
         </template>
         <v-card-text>
           <t-gis-map
-            :center="[82.89785, 54.98021]"
+            :center="firstPoint"
             :styles="{width: '100%', height: '870px'}"
             :zoom="14"
             :routePoints="items.map(item => item.point)"
@@ -40,15 +40,28 @@ export default {
 
   data() {
     return {
-      items: this.getRouteData()
+      items: [],
+      firstPoint: [82.89785, 54.98021] // Значение по умолчанию
     }
   },
 
+  mounted() {
+    this.loadRouteData();
+  },
+
   methods: {
-    getRouteData() {
+    loadRouteData() {
       const routeData = localStorage.getItem('routeData');
-      console.info(routeData)
-      return routeData ? JSON.parse(routeData) : [];
+      if (routeData) {
+        this.items = JSON.parse(routeData);
+        if (this.items.length > 0) {
+          this.firstPoint = this.items[0].point; // Устанавливаем первую точку как центр
+          // #DEFECT - lat/lon swap
+          // let tmp = this.firstPoint[0]
+          // this.firstPoint[0] = this.firstPoint[1]
+          // this.firstPoint[1] = tmp
+        }
+      }
     }
   }
 }
