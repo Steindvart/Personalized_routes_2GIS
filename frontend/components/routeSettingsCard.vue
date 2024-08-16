@@ -107,6 +107,7 @@ export default {
       errorMessage: ''
     }
   },
+
   methods: {
     addActivity() {
       if (this.activities.length < 4) {
@@ -150,7 +151,15 @@ export default {
       try {
         // Отправка данных на сервер
         const response = await axios.post('http://localhost:8000/api/generate-journey', routePreferences)
-        console.log('Маршрут сгенерирован:', response.data)
+        console.info(response.data)
+        const routeData = response.data.data.places
+
+        // Сохранение данных в localStorage
+        console.info(routeData)
+        localStorage.setItem('routeData', JSON.stringify(routeData));
+
+        // Переход на страницу journey
+        this.$router.push({ name: 'journey' });
       } catch (error) {
         console.error('Ошибка при генерации маршрута:', error)
       }
@@ -158,6 +167,8 @@ export default {
   },
 }
 </script>
+
+
 
 <style scoped>
 .activity-number {

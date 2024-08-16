@@ -17,8 +17,8 @@
             <v-card-title :class="['text-h6', `bg-${item.color}`]">
               {{ item.name }}
             </v-card-title>
-            <v-card-text v-if="item.desc" class="bg-white text--primary limited-width">
-              <p class="description">{{ item.desc }}</p>
+            <v-card-text v-if="item.desc || (item.rating && item.rating != 0)" class="bg-white text--primary limited-width">
+              <p v-if="item.desc" class="description">{{ item.desc }}</p>
               <v-chip v-if="item.rating"
                 append-icon="mdi-star"
                 class="mt-2"
@@ -51,6 +51,8 @@ export default {
   },
   computed: {
     itemsWithIconsAndColors() {
+      console.info(this.items)
+
       return this.items.map(item => {
         let icon = '';
         let color = '';
@@ -86,7 +88,7 @@ export default {
     },
   },
   methods: {
-    startJourney() {
+    rebuildJourney() {
       console.log("Перенастройка маршрута", this.items);
     },
   },
