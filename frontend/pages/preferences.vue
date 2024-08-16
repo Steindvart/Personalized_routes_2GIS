@@ -90,7 +90,6 @@ export default {
         { text: "Антикафе", value: 1 },
         { text: "Бар", value: 2 },
         { text: "Караоке", value: 3 },
-        { text: "Игры/Видеоигры", value: 4 },
       ],
 
       styleItems: [

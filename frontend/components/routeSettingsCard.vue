@@ -100,7 +100,7 @@ export default {
       averageCheckOptions: [500, 1000, 1500, 2000, 3000],
       totalTime: '2 часа',
       totalTimeOptions: ['1 час', '2 часа', '3 часа', '4 часа', 'Более 4 часов'],
-      wayType: 'Общественный транспорт',
+      wayType: 'Пешком',
       wayTypeOptions: ['Пешком', 'Автомобиль', 'Общественный транспорт'],
       wantSomethingNew: false,
       error: false,

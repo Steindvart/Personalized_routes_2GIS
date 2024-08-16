@@ -40,13 +40,20 @@ class RecommendationsEngine:
         if (category == 'Кафе'): category = 'Кофейня'
 
         style: str = random.choice(self.global_pref.foodStyle)
-        type: PlaceType = PlaceType.ORG
+        journey_place_type: JourneyPlaceType = JourneyPlaceType.food
 
         search: str = f'{category} {style}'
+      elif (activity == Activities.fun):
+        category: str = random.choice(self.global_pref.fun)
+        journey_place_type: JourneyPlaceType = JourneyPlaceType.fun
 
-        radius = RADIUS_DEFAULT
-        places: list[dict] | None = None
+        search: str = f'{category}'
 
+      radius = RADIUS_DEFAULT
+      places: list[dict] | None = None
+
+      if (activity != Activities.walk):
+        type: PlaceType = PlaceType.ORG
         while radius <= RADIUS_LIMIT:
           places = main_gis_api.search_places_by_point(search, location, radius, type)
           if places:
@@ -57,7 +64,9 @@ class RecommendationsEngine:
           selected_place = random.choice(places[:100])
           place_id = selected_place['id']
           place = main_gis_api.get_place(place_id, True)
-          journey_place: JourneyPlace = JourneyPlace.from_dict(place, JourneyPlaceType.food)
+          journey_place: JourneyPlace = JourneyPlace.from_dict(place, journey_place_type)
           journey.places.append(journey_place)
+      else:
+        pass
 
     return journey
