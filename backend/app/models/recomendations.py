@@ -26,7 +26,7 @@ class RecommendationsEngine:
           address='',
           desc='',
           rating=0,
-          point=(self.curr_pref.point['lat'], self.curr_pref.point['lon'])
+          point=(self.curr_pref.point['lon'], self.curr_pref.point['lat'])
         )
       ]
     )
@@ -60,13 +60,14 @@ class RecommendationsEngine:
             break
           radius += RADIUS_DEFAULT
 
+        # NOTE - AI here!
         if places:
           selected_place = random.choice(places[:100])
           place_id = selected_place['id']
           place = main_gis_api.get_place(place_id, True)
           journey_place: JourneyPlace = JourneyPlace.from_dict(place, journey_place_type)
           journey.places.append(journey_place)
-      else:
-        pass
+        else:
+          pass
 
     return journey

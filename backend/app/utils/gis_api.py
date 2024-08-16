@@ -19,9 +19,9 @@ class PlaceType(Enum):
 
 
 class GisPoint():
-  def __init__(self, lat: float, lon: float) -> None:
-    self.lat: float = lat
+  def __init__(self, lon: float, lat: float) -> None:
     self.lon: float = lon
+    self.lat: float = lat
 
 
 # TODO - type for fields param

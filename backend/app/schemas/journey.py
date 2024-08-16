@@ -17,14 +17,15 @@ class JourneyPlace(BaseModel):
   rating: float
   point: tuple[float, float]
 
+  @staticmethod
   def from_dict(src: dict, type: JourneyPlaceType):
     return JourneyPlace(
       type=type,
       name=src["name"],
       address=f'{src["address_name"]}, {src.get("address_comment", "")}',
-      desc=f'',
-      rating=src["reviews"]["rating"],
-      point=(src["point"]["lat"], src["point"]["lon"])
+      desc='',
+      rating=src.get("reviews", {}).get("rating", 0.0),  # Используем get с значением по умолчанию 0.0
+      point=(src["point"]["lon"], src["point"]["lat"])
     )
 
 
