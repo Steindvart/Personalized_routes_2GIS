@@ -3,10 +3,13 @@ import random
 from ..schemas import CurrentPreferences, Activities
 
 from ..schemas.currect_preferences import CurrentPreferences, Activities
-from ..schemas.global_preferences import GlobalPreferenceSimple, FoodPref
+from ..schemas.global_preferences import GlobalPreferenceSimple
 from ..schemas.journey import Journey, JourneyPlace, JourneyPlaceType
 
 from ..utils.gis_api import GisPoint, PlaceType, main_gis_api
+
+RADIUS_DEFAULT: int = 1000
+RADIUS_LIMIT: int = 5000
 
 class RecommendationsEngine:
   def __init__(self, global_pref: GlobalPreferenceSimple, curr_pref: CurrentPreferences):
@@ -15,10 +18,23 @@ class RecommendationsEngine:
 
 
   def generateJourney(self) -> Journey:
-    journey: Journey = Journey(places=[])
+    journey: Journey = Journey(
+      places=[
+        JourneyPlace(
+          type=JourneyPlaceType.start,
+          name='Стартовая точка',
+          address='',
+          desc='',
+          rating=0,
+          point=(self.curr_pref.point['lat'], self.curr_pref.point['lon'])
+        )
+      ]
+    )
 
     for activity in self.curr_pref.activities:
-      location: GisPoint = GisPoint(self.curr_pref.point['lat'], self.curr_pref.point['lon'])
+      last_place = journey.places[-1]
+      location = GisPoint(last_place.point[0], last_place.point[1])
+
       if (activity == Activities.food):
         category: str = random.choice(self.global_pref.food)
         if (category == 'Кафе'): category = 'Кофейня'
@@ -28,7 +44,15 @@ class RecommendationsEngine:
 
         search: str = f'{category} {style}'
 
-        places: list | None = main_gis_api.search_places_by_point(search, location, 1000, type)
+        radius = RADIUS_DEFAULT
+        places: list[dict] | None = None
+
+        while radius <= RADIUS_LIMIT:
+          places = main_gis_api.search_places_by_point(search, location, radius, type)
+          if places:
+            break
+          radius += RADIUS_DEFAULT
+
         if places:
           selected_place = random.choice(places[:100])
           place_id = selected_place['id']

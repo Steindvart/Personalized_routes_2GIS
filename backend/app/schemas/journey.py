@@ -2,6 +2,7 @@ from enum import Enum
 from pydantic import BaseModel
 
 class JourneyPlaceType(str, Enum):
+  start = 'start'
   food = 'food'
   walk = 'walk'
   fun = 'fun'
@@ -27,7 +28,5 @@ class JourneyPlace(BaseModel):
     )
 
 
-
-# TODO - Journey schema, list of places for route. As main result of route generating
 class Journey(BaseModel):
   places: list[JourneyPlace]
