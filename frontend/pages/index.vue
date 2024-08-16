@@ -48,6 +48,7 @@
             :styles="{width: '100%', height: '870px'}"
             :zoom="14"
             :enableMarker="false"
+            :routePoints="items.map(item => item.point)"
           ></t-gis-map>
         </v-card-text>
       </v-card>

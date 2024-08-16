@@ -14,7 +14,7 @@
     />
     <preferences-section
       title="Кухня"
-      :items="foodStyle"
+      :items="foodStyleItems"
       v-model="selectedFoodStyle"
     />
     <preferences-section
@@ -50,7 +50,6 @@
       variant="outlined"
       rounded="xl"
       size="large"
-      large
       @click="goToRouteGenerator"
     >
       Настроить маршрут
@@ -75,7 +74,7 @@ export default {
         { text: "Фаст-фуд", value: 3 },
       ],
 
-      foodStyle: [
+      foodStyleItems: [
         { text: "Европейская кухня", value: 1 },
         { text: "Азиатская кухня", value: 2 },
       ],
@@ -107,11 +106,32 @@ export default {
     };
   },
 
+  async created() {
+    await this.fetchPreferences();
+  },
+
   methods: {
+    async fetchPreferences() {
+      try {
+        const response = await axios.get("http://localhost:8000/api/preferences/simple");
+        const { preferences } = response.data;
+
+        this.selectedFood = this.foodItems.filter(item => preferences.food.includes(item.text));
+        this.selectedFoodStyle = this.foodStyleItems.filter(item => preferences.foodStyle.includes(item.text));
+        this.selectedWalk = this.walkItems.filter(item => preferences.walk.includes(item.text));
+        this.selectedFunn = this.funItems.filter(item => preferences.fun.includes(item.text));
+        this.selectedStyle = this.styleItems.filter(item => preferences.style.includes(item.text));
+
+      } catch (error) {
+        console.error("Error fetching preferences:", error);
+      }
+    },
+
     goToRouteGenerator() {
       this.savePreferences();
       this.$router.push('/generator');
     },
+
     async savePreferences() {
       const preferences = {
         food: this.selectedFood.map(item => item.text),
@@ -143,5 +163,4 @@ export default {
   font-family: 'Roboto', sans-serif;
   max-width: 800px;
 }
-
 </style>
