@@ -1,7 +1,7 @@
 <template>
     <v-card class="mx-auto" max-width="600" outlined>
       <v-card-subtitle class="subtitle_text">
-        Укажи ваше местоположение и удобный вам радиус поиска
+        Укажи ваше местоположение и интересуеющее вас расстояние 
       </v-card-subtitle>
 
       <v-card-text>
@@ -17,7 +17,7 @@
         <v-container>
             <v-text-field
                 v-model="longitudeInput"
-                label="Долгота"
+                label="Долгота" 
                 outlined
                 class="input_field"
                 clearable
@@ -26,7 +26,7 @@
         <v-container>
             <v-text-field
                 v-model="radiusInput"
-                label="Радиус поиска"
+                label="Количество свободных минут"
                 outlined
                 class="input_field"
                 clearable
@@ -34,8 +34,8 @@
         </v-container>
         <v-row class="mt-4 justify-center">
             <v-col cols="auto">
-                <!-- Button to find the place in map -->
-                <v-btn color="primary" @click="addActivity" class="show_in_map_btn" variant="outlined" rounded="xl" size="x-large">
+                <!-- Button to find the place on map -->
+                <v-btn color="primary" @click="showOnMap" class="show_on_map_btn" variant="outlined" rounded="xl" size="x-large">
                 Покажи на карте
                 </v-btn>
             </v-col>
@@ -58,103 +58,56 @@
   </template>
   
   <script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   import axios from 'axios'
   
-  export default {
-    props: {
-      point: {
-        type: Array,
-        default: () => [0, 0],
+    export default {
+      props: {
+        point: {
+          type: Array,
+          default: () => [0, 0],
+        },
       },
-    },
-
-
-
-
-
-
-
-
 
     data() {
         return {
-          latitudeInput: '',
-          longitudeInput: '',
-          radiusInput: '',
+          latitudeInput: 0,
+          longitudeInput: 0,
+          radiusInput: 0,
           storyText: 'This is where the text will be displayed.'
         }
     },
     methods: {
         tellTheStory() {
-        this.storyText = 'The story!'
-        }
+
+        this.storyText = 'Ну а тут дыра в стене, на полу на самом дне. Там есть девочка в стене, на полу на самом дне....'
+        // OUTPUT OF GPT API GOES HERE!
+        },
+
+        // showOnMap() {
+        //     // if(this.longitudeInput===0 && this.latitudeInput===0){
+                        
+        //     //     this.longitudeInput = this.point[0]
+        //     //     this.latitudeInput = this.point[1]
+        //     // }else{
+        //     this.point[0]=this.longitudeInput,
+        //     this.point[1]=this.latitudeInput
+        //     // }
+        // }
+        showOnMap() {
+        this.$emit('coordinates-updated', {
+            latitude: this.latitudeInput,
+            longitude: this.longitudeInput,
+            radius: this.radiusInput
+        });
+        },
     },
-
-
-
-
-
 
 
   }
   </script>
   
   <style scoped>
-  .activity-number {
-    width: 20px;
-    text-align: right;
-    margin-right: 10px;
-  }
-  
-  .start-journey-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  .v-card {
-    position: relative;
-  }
-
-
-
-
-
-
-
-
-  .show_in_map_btn {
+  .show_on_map_btn {
     text-transform: none;
   }
   .tell_the_story_btn {
@@ -173,8 +126,5 @@
     /* border: 1px solid #ccc;*/
     background-color: #f9f9f931;
   }
-
-
-
   </style>
   
