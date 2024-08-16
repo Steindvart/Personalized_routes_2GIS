@@ -1,14 +1,25 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from threading import Lock
 
 from .mock import router as mock_router
 from .users import router as users_router
 from .guide import router as guide_router
 
 from ..models import Preference as PreferenceModel
-from ..schemas import GlobalPreference, CurrentPreferences, GlobalPreferenceSimple
+from ..schemas import GlobalPreference, CurrentPreferences
+from ..schemas.global_preferences import GlobalPreferenceSimple
 
 from ..db import get_db
+
+single_preferences_obj: GlobalPreferenceSimple = GlobalPreferenceSimple(
+    food=[],
+    foodStyle=[],
+    walk=[],
+    fun=[],
+    style=[]
+)
+single_preferences_lock = Lock()
 
 router = APIRouter()
 router.include_router(mock_router, prefix="/mock", tags=["mock"])
@@ -43,9 +54,19 @@ def create_preference(user_id: int, category_id: int, rating: float, options: st
   return db_preference
 
 
+@router.get("/preferences/simple")
+def get_simple_preferences():
+  global single_preferences_obj
+
+  with single_preferences_lock:
+    return {"status": "success", "preferences": single_preferences_obj}
+
+
 @router.post("/preferences/simple")
-def update_simple_preferences(preferences: GlobalPreferenceSimple, db: Session = Depends(get_db)):
+def update_simple_preferences(preferences: GlobalPreferenceSimple):
+  global single_preferences_obj
 
-  # Обработка и сохранение в базу данных/объект в RAM
+  with single_preferences_lock:
+    single_preferences_obj = preferences
 
-  return {"status": "success", "preferences": preferences}
+  return {"status": "success", "preferences": single_preferences_obj}

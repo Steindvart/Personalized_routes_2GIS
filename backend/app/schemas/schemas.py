@@ -74,22 +74,6 @@ class GlobalPreference(GlobalPreferenceBase):
     orm_mode = True
 
 
-class GlobalPreferenceSimple(BaseModel):
-  food: list[str]
-  walk: list[str]
-  fun: list[str]
-  style: list[str]
-
-
-class CurrentPreferences(BaseModel):
-  activities: list[str]
-  averageCheck: int
-  totalTime: int
-  wayType: str
-  wantSomethingNew: bool
-  point: dict
-
-
 # TODO - Journey schema, list of places for route. As main result of route generating
 class Journey(BaseModel):
-  places: list
+  places: dict
