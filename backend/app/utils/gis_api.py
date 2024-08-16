@@ -4,6 +4,8 @@ from enum import Enum
 
 import logging as log
 
+from ..config import T_GIS_API_KEY
+
 CATALOG_API_URL: str = 'https://catalog.api.2gis.com'
 PLACES_API_ENDPOINT: str = '/3.0/items'
 
@@ -69,13 +71,10 @@ class GisApi:
 
     return items
 
-
   def _get_additional_fields_list(self) -> list:
     return [
-      'items.flags', 'items.full_address_name', 'items.schedule',
-      'items.external_content', 'items.reviews', 'items.attribute_groups'
+      'items.point', 'items.full_address_name', 'items.reviews'
     ]
-
 
   # ----- Getting city ------
   def get_city_id(self, city: str) -> Optional[int]:
@@ -205,3 +204,6 @@ class GisApi:
     if (not place): return None
 
     return place.get('attribute_groups', {})
+
+
+main_gis_api: GisApi = GisApi(T_GIS_API_KEY)

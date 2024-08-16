@@ -17,6 +17,7 @@
             :center="[82.89785, 54.98021]"
             :styles="{width: '100%', height: '870px'}"
             :zoom="14"
+            :routePoints="items.map(item => item.point)"
             :enableMarker="false"
           ></t-gis-map>
         </v-card-text>
@@ -25,7 +26,6 @@
     <br/>
   </v-container>
 </template>
-
 
 <script>
 import routeInfoCard from '@/components/routeInfoCard'
@@ -38,48 +38,51 @@ export default {
     tGisMap
   },
 
-  data: () => ({
-    // #TODO - getting from server
-    items: [
-      {
-        type: 'start',
-        name: 'Стартовая точка',
-        desc: "",
-        rating: null,
-        point: [82.89821282451898, 54.98018285867834]
-      },
-      {
-        type: 'food',
-        name: 'Кафе "Плюшка"',
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        rating: 4.3,
-        point: [82.90568931600684, 54.983789907034286]
-      },
-      {
-        type: 'walk',
-        name: 'Сквер им. Сибиряков-Гвардейцев',
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        rating: null,
-        point: [82.8904133554231, 54.97939911412844]
-      },
-      {
-        type: 'fun',
-        name: 'Караоке "Певун"',
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        rating: 4.5,
-        point: [82.9115555313026, 54.99266076608315]
-      },
-      {
-        type: 'walk',
-        name: 'Парк "Арена"',
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        rating: null,
-        point: [82.92598203704318, 54.99680146158085]
-      },
-    ],
-  }),
+  // #TODO - getting from server
+  data() {
+    return {
+      items: [
+        {
+          type: 'start',
+          name: 'Стартовая точка',
+          desc: "",
+          rating: null,
+          point: [82.89821282451898, 54.98018285867834]
+        },
+        {
+          type: 'food',
+          name: 'Кафе "Плюшка"',
+          desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          rating: 4.3,
+          point: [82.90568931600684, 54.983789907034286]
+        },
+        {
+          type: 'walk',
+          name: 'Сквер им. Сибиряков-Гвардейцев',
+          desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          rating: null,
+          point: [82.8904133554231, 54.97939911412844]
+        },
+        {
+          type: 'fun',
+          name: 'Караоке "Певун"',
+          desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          rating: 4.5,
+          point: [82.9115555313026, 54.99266076608315]
+        },
+        {
+          type: 'walk',
+          name: 'Парк "Арена"',
+          desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          rating: null,
+          point: [82.92598203704318, 54.99680146158085]
+        },
+      ],
+    }
+  }
 }
 </script>
+
 
 <style scoped>
 .full-width-container {

@@ -13,6 +13,11 @@
       v-model="selectedFood"
     />
     <preferences-section
+      title="Кухня"
+      :items="foodStyle"
+      v-model="selectedFoodStyle"
+    />
+    <preferences-section
       title="Прогулки"
       :items="walkItems"
       v-model="selectedWalk"
@@ -68,8 +73,11 @@ export default {
         { text: "Кафе", value: 1 },
         { text: "Рестораны", value: 2 },
         { text: "Фаст-фуд", value: 3 },
-        { text: "Европейская кухня", value: 4 },
-        { text: "Азиатская кухня", value: 5 },
+      ],
+
+      foodStyle: [
+        { text: "Европейская кухня", value: 1 },
+        { text: "Азиатская кухня", value: 2 },
       ],
 
       walkItems: [
@@ -81,10 +89,8 @@ export default {
       funItems: [
         { text: "Антикафе", value: 1 },
         { text: "Бар", value: 2 },
-        { text: "Клуб", value: 3 },
-        { text: "Кальян", value: 4 },
-        { text: "Караоке", value: 5 },
-        { text: "Игры/Видеоигры", value: 6 },
+        { text: "Караоке", value: 3 },
+        { text: "Игры/Видеоигры", value: 4 },
       ],
 
       styleItems: [
@@ -95,6 +101,7 @@ export default {
       ],
 
       selectedFood: [],
+      selectedFoodStyle: [],
       selectedWalk: [],
       selectedFunn: [],
       selectedStyle: [],
@@ -109,6 +116,7 @@ export default {
     async savePreferences() {
       const preferences = {
         food: this.selectedFood.map(item => item.text),
+        foodStyle: this.selectedFoodStyle.map(item => item.text),
         walk: this.selectedWalk.map(item => item.text),
         fun: this.selectedFunn.map(item => item.text),
         style: this.selectedStyle.map(item => item.text),
