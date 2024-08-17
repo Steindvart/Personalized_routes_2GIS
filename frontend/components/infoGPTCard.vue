@@ -8,7 +8,7 @@
         <v-container>
             <v-text-field
                 v-model="latitudeInput"
-                label="Широта"
+                label="Выбранная Широта"
                 outlined
                 class="input_field"
                 clearable
@@ -17,7 +17,7 @@
         <v-container>
             <v-text-field
                 v-model="longitudeInput"
-                label="Долгота" 
+                label="Выбранная Долгота" 
                 outlined
                 class="input_field"
                 clearable
@@ -34,9 +34,9 @@
         </v-container>
         <v-row class="mt-4 justify-center">
             <v-col cols="auto">
-                <!-- Button to find the place on map -->
+                <!-- Button to fix the place  -->
                 <v-btn color="primary" @click="showOnMap" class="show_on_map_btn" variant="outlined" rounded="xl" size="x-large">
-                Покажи на карте
+                  Зафиксировать местоположения
                 </v-btn>
             </v-col>
         </v-row>
@@ -83,23 +83,23 @@
         // OUTPUT OF GPT API GOES HERE!
         },
 
-        // showOnMap() {
-        //     // if(this.longitudeInput===0 && this.latitudeInput===0){
-                        
-        //     //     this.longitudeInput = this.point[0]
-        //     //     this.latitudeInput = this.point[1]
-        //     // }else{
-        //     this.point[0]=this.longitudeInput,
-        //     this.point[1]=this.latitudeInput
-        //     // }
-        // }
         showOnMap() {
-        this.$emit('coordinates-updated', {
-            latitude: this.latitudeInput,
-            longitude: this.longitudeInput,
-            radius: this.radiusInput
-        });
-        },
+            // if(this.longitudeInput===0 && this.latitudeInput===0){
+                        
+                this.longitudeInput = this.point[0]
+                this.latitudeInput = this.point[1]
+            // }else{
+            // this.point[0]=this.longitudeInput,
+            // this.point[1]=this.latitudeInput
+            // }
+        }
+        // showOnMap() {
+        // this.$emit('coordinates-updated', {
+        //     latitude: this.latitudeInput,
+        //     longitude: this.longitudeInput,
+        //     radius: this.radiusInput
+        // });
+        // },
     },
 
 
