@@ -1,12 +1,16 @@
 <template>
   <div> 
-    <h2>GPT-основанный гайд</h2>
+    <h2>Твой личный гид</h2>
     <v-container class="content_wrapper">
-        <info-card class="info_card">    
+        <info-card class="info_card"
+          :point="selectedPoint"
+          :radius="radius"
+        >    
         </info-card>
         <v-card class="map_container">
           <template v-slot:title>
               <span class="font-weight-black">Карта</span>
+              <p class="coordinates_field">Широта: {{ selectedPoint[0] }}, Долгота: {{ selectedPoint[1] }}, Радиус: {{ radius }}</p>
           </template>
           <info-gpt-card @fetch-isochrone="getIsochroneData"></info-gpt-card>
           <v-card-text>
@@ -15,6 +19,9 @@
               :styles="{width: '100%', height: '870px'}"
               :zoom="12"
               :selectedPoint="selectedPoint"
+              :enableCircle="true"
+              :radius="radius"
+              @radius-updated="updateMapData">
             ></t-gis-map>
           </v-card-text>
         </v-card>
@@ -38,20 +45,21 @@ export default {
   data() {
     return {
       isochroneData: null, // To store the API response
+      radius: 1500
     }
   },
   setup() {
     const selectedPoint = ref([0, 0])
-
     return { selectedPoint }
-  }
+  },
+  methods: {
+    updateMapData({ radius }) {
+      this.radius = radius;
+    },
+  },
+ 
 }
 </script>
-
-
-
-
-
 
 
 
@@ -77,5 +85,10 @@ export default {
   display: flex; /* Гарантируем, что вложенные элементы будут растягиваться */
   flex-direction: column;
 }
+.coordinates_field {
+    font-size: 14px;
+    height: 20px; 
+  }
+
 
 </style>

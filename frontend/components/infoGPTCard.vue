@@ -6,27 +6,10 @@
 
       <v-card-text>
         <v-container>
+          <p class="input_field">Широта: {{ point[0] }}</p><p class="input_field"> Долгота: {{point[1] }}</p>
             <v-text-field
-                v-model="latitudeInput"
-                label="Выбранная Широта"
-                outlined
-                class="input_field"
-                clearable
-            ></v-text-field>
-        </v-container>
-        <v-container>
-            <v-text-field
-                v-model="longitudeInput"
-                label="Выбранная Долгота" 
-                outlined
-                class="input_field"
-                clearable
-            ></v-text-field>
-        </v-container>
-        <v-container>
-            <v-text-field
-                v-model="radiusInput"
-                label="Количество свободных минут"
+                v-model="localradius"
+                label="Радиус поиска"
                 outlined
                 class="input_field"
                 clearable
@@ -35,8 +18,8 @@
         <v-row class="mt-4 justify-center">
             <v-col cols="auto">
                 <!-- Button to fix the place  -->
-                <v-btn color="primary" @click="showOnMap" class="show_on_map_btn" variant="outlined" rounded="xl" size="x-large">
-                  Зафиксировать местоположения
+                <v-btn color="primary" @click="fixRadius" class="show_on_map_btn" variant="outlined" rounded="xl" size="x-large">
+                  Зафиксировать радиус
                 </v-btn>
             </v-col>
         </v-row>
@@ -60,22 +43,25 @@
   <script>
   import axios from 'axios'
   
+  
     export default {
       props: {
         point: {
           type: Array,
           default: () => [0, 0],
         },
+        radius: {
+          type: Number,
+        }
       },
 
     data() {
         return {
-          latitudeInput: 0,
-          longitudeInput: 0,
-          radiusInput: 0,
+          localradius: this.radius,
           storyText: 'This is where the text will be displayed.'
         }
     },
+
     methods: {
         tellTheStory() {
 
@@ -83,26 +69,30 @@
         // OUTPUT OF GPT API GOES HERE!
         },
 
-        showOnMap() {
-            // if(this.longitudeInput===0 && this.latitudeInput===0){
-                        
-                this.longitudeInput = this.point[0]
-                this.latitudeInput = this.point[1]
-            // }else{
-            // this.point[0]=this.longitudeInput,
-            // this.point[1]=this.latitudeInput
-            // }
+
+
+        fixRadius() {
+        if(this.point[0] !==0 && this.point[1] !==0){
+          this.$emit('radius-updated', {
+            radius: localradius
+        })
         }
-        // showOnMap() {
+      },
+
         // this.$emit('coordinates-updated', {
-        //     latitude: this.latitudeInput,
-        //     longitude: this.longitudeInput,
-        //     radius: this.radiusInput
+        //     latitude: this.latitude,
+        //     longitude: this.longitude,
+        //     this.radius: this.radius
         // });
-        // },
-    },
 
 
+    //   updateRadius() {
+    //   // Emit the updated radius and coordinates
+    //   this.$emit('coordinates-updated', {
+    //     radius: this.radius,
+    //   });
+    // }
+  },
   }
   </script>
   
@@ -118,8 +108,10 @@
   white-space: normal;
   }
   .input_field {
-  height: 20px; 
+    font-size: 16px;
+    height: 40px; 
   }
+  
   .story_text{
     font-size: 16px; /* Customize font size */
     padding: 5px;
