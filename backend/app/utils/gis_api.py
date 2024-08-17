@@ -243,5 +243,25 @@ class GisApi:
 
     return self._get_catalog_all_items(endpoint, params)
 
+  def get_place_geocode(self, place_id: int, additional_info: bool = False) -> Optional[list]:
+    """Получить информацию о месте/заведении по его ID."""
+    endpoint = f'{GEOCODE_API_ENDPOINT}/byid'
+
+    params = {
+      'id': place_id,
+    }
+
+    if (additional_info):
+      params['fields'] = ','.join(self._get_geocode_additional_fields_list())
+
+    items = self._get_catalog_all_items(endpoint, params)
+    if (not items): return None
+
+    return items[0]
+
+  def _get_geocode_additional_fields_list(self) -> list:
+    return [
+      'items.point', 'items.address', 'items.description'
+    ]
 
 main_gis_api: GisApi = GisApi(T_GIS_API_KEY)
