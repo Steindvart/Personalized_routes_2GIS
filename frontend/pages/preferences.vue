@@ -7,16 +7,27 @@
     <p class="description mt-3">
       😉 Но, не переживай, ты их можешь изменить в любой момент.
     </p>
-    <preferences-section
-      title="Еда"
-      :items="foodItems"
-      v-model="selectedFood"
-    />
-    <preferences-section
-      title="Кухня"
-      :items="foodStyleItems"
-      v-model="selectedFoodStyle"
-    />
+    <v-row>
+      <v-col>
+        <preferences-section
+          title="Еда"
+          :items="foodItems"
+          v-model="selectedFood"
+        />
+        <preferences-section
+          title="Кухня"
+          :items="foodStyleItems"
+          v-model="selectedFoodStyle"
+        />
+      </v-col>
+      <v-col>
+        <preferences-section
+          title="Места, которые нравятся - Еда"
+          :items="placesFoodItems"
+          v-model="selectedStyle"
+        />
+      </v-col>
+    </v-row>
     <preferences-section
       title="Прогулки"
       :items="walkItems"
@@ -32,6 +43,7 @@
       :items="styleItems"
       v-model="selectedStyle"
     />
+
 
     <br />
     <v-btn
@@ -98,11 +110,19 @@ export default {
         { text: "Одному", value: 4 },
       ],
 
+      placesFoodItems: [
+        { text: "Гуси", value: 1 },
+        { text: "Шашлыкофф", value: 2 },
+        { text: "Фоконг", value: 3 },
+        { text: "Мармелад", value: 4 },
+      ],
+
       selectedFood: [],
       selectedFoodStyle: [],
       selectedWalk: [],
       selectedFunn: [],
       selectedStyle: [],
+      selectedPlacesFood: [],
     };
   },
 
