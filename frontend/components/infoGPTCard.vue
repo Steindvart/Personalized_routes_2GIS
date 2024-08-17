@@ -8,6 +8,7 @@
         text="Я еще учусь - поэтому могу ошибаться в предоставляемых данных."
         title="Возможны ошибки!"
         type="warning"
+        class="warning_alert"
       ></v-alert>
       <v-row class="justify-center mb-4">
         <v-btn
@@ -63,6 +64,7 @@ export default {
 <style scoped>
 .tell_the_story_btn {
   text-transform: none;
+  margin-top: 2;
 }
 
 .subtitle_text {
@@ -78,5 +80,9 @@ export default {
   background-color: #f9f9f9;
   border-radius: 5px;
   color: #424242;
+}
+.warning_alert{
+  margin-bottom: 16px; /* Add margin to create space between the alert and the button */
+  z-index: 1; /* Ensure the alert is on top */
 }
 </style>
