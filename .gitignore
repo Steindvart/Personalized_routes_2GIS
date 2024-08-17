@@ -14,3 +14,6 @@ _test.py
 # Frontend
 .nuxt/
 node_modules/
+
+# VSCode
+.vscode/

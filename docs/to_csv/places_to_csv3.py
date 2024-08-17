@@ -8,6 +8,7 @@ def fetch_data(rubric_id, api_key):
         'rubric_id': rubric_id,
         'region_id': 1,
         'fields': 'items.id,items.name,items.address_name,items.rubrics,items.context',
+        # 'rating': 'src["reviews"]["rating"]',
         'page_size': 10,
         'key': api_key
     }
