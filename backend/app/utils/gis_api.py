@@ -8,6 +8,7 @@ from ..config import T_GIS_API_KEY
 
 CATALOG_API_URL: str = 'https://catalog.api.2gis.com'
 PLACES_API_ENDPOINT: str = '/3.0/items'
+GEOCODE_API_ENDPOINT: str = '/3.0/items/geocode'
 
 class PlaceType(Enum):
   ORG = 'branch'
@@ -204,6 +205,22 @@ class GisApi:
     if (not place): return None
 
     return place.get('attribute_groups', {})
+
+
+  # ----- Geocode ------
+  def search_geocode_by_point(self, search: str, point: GisPoint, radius: int = 500, type: PlaceType = PlaceType.ATTRACTION) -> Optional[list]:
+    """Получить список мест/заведений в указанной локации по поисковому запросу."""
+    endpoint = GEOCODE_API_ENDPOINT
+
+    params = {
+      'q': f'{search}',
+      'type': str(type),
+      'lon': point.lon,
+      'lat': point.lat,
+      'radius': radius
+    }
+
+    return self._get_catalog_all_items(endpoint, params)
 
 
 main_gis_api: GisApi = GisApi(T_GIS_API_KEY)
