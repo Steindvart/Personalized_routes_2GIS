@@ -28,7 +28,7 @@
             <v-list-item prepend-icon="mdi-star" title="Предпочтения"></v-list-item>
           </nuxt-link>
           <nuxt-link to="/guide" exact class="custom-link">
-            <v-list-item prepend-icon="mdi-brain" title="GPT-гайд"></v-list-item>
+            <v-list-item prepend-icon="mdi-brain" title="GPT-гид"></v-list-item>
           </nuxt-link>
           <!-- <nuxt-link to="/map" exact class="custom-link">
             <v-list-item prepend-icon="mdi-map" title="Карта"></v-list-item>

@@ -39,7 +39,7 @@
         <preferences-section
           title="Места, которые нравятся - Еда"
           :items="placesFoodItems"
-          v-model="selectedStyle"
+          v-model="selectedPlacesFood"
         />
 
         <preferences-section
@@ -145,7 +145,6 @@ export default {
       selectedFunn: [],
       selectedStyle: [],
       selectedPlacesFood: [],
-      selectedPlacesFoodStyle: [],
       selectedPlacesWalk: [],
       selectedPlacesFunn: [],
     };
