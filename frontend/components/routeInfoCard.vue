@@ -17,7 +17,11 @@
             <v-card-title :class="['text-h6', `bg-${item.color}`]">
               {{ item.name }}
             </v-card-title>
-            <v-card-text v-if="item.desc || (item.rating && item.rating != 0)" class="bg-white text--primary limited-width">
+            <v-card-text
+              v-if="item.desc || item.address || (item.rating && item.rating != 0)"
+              class="bg-white text--primary limited-width"
+            >
+              <p v-if="item.address" class="description">{{ item.address }}</p>
               <p v-if="item.desc" class="description">{{ item.desc }}</p>
               <v-chip v-if="item.rating"
                 append-icon="mdi-star"
@@ -31,9 +35,8 @@
         </v-timeline-item>
       </v-timeline>
 
-      <!-- Кнопка "Начать путешествие" по центру внизу элементов -->
       <div class="start-journey-container">
-        <v-btn color="teal" @click="startJourney" class="start-journey-btn" variant="outlined" rounded="xl" size="large">
+        <v-btn color="teal" @click="rebuildJourney" class="start-journey-btn" variant="outlined" rounded="xl" size="large">
           Перенастроить маршрут
         </v-btn>
       </div>
@@ -89,6 +92,7 @@ export default {
   },
   methods: {
     rebuildJourney() {
+      this.$router.push('/generator');
       console.log("Перенастройка маршрута", this.items);
     },
   },
