@@ -74,7 +74,13 @@ class GisApi:
 
   def _get_additional_fields_list(self) -> list:
     return [
-      'items.point', 'items.full_address_name', 'items.reviews'
+      'items.point', 'items.full_address_name', 'items.reviews', 'items.rubrics'
+    ]
+
+  def _get_all_fields_list(self) -> list:
+    return [
+      'items.point', 'items.full_address_name', 'items.reviews', 'items.rubrics',
+      'items.context'
     ]
 
   # ----- Getting city ------
@@ -172,7 +178,7 @@ class GisApi:
     return self._get_catalog_all_items(endpoint, params)
 
 
-  def get_place(self, place_id: int, additional_info: bool = False) -> Optional[list]:
+  def get_place(self, place_id: int, additional_info: bool = False) -> dict | None:
     """Получить информацию о месте/заведении по его ID."""
     endpoint = f'{PLACES_API_ENDPOINT}/byid'
 
@@ -188,6 +194,21 @@ class GisApi:
 
     return items[0]
 
+  def get_place_all_info(self, place_id: int, additional_info: bool = False) -> dict | None:
+    """Получить информацию о месте/заведении по его ID."""
+    endpoint = f'{PLACES_API_ENDPOINT}/byid'
+
+    params = {
+      'id': place_id,
+    }
+
+    if (additional_info):
+      params['fields'] = ','.join(self._get_all_fields_list())
+
+    items = self._get_catalog_all_items(endpoint, params)
+    if (not items): return None
+
+    return items[0]
 
   def get_place_reviews(self, place_id: int) -> Optional[dict]:
     """Получить рейтинг места/заведения по его ID."""

@@ -67,7 +67,7 @@ class RecommendationsEngine:
           place = main_gis_api.get_place(place_id, True)
           journey_place: JourneyPlace = JourneyPlace.from_dict(place, journey_place_type)
           journey.places.append(journey_place)
-        else:
+        elif (activity == Activities.walk):
           pass
 
     return journey
