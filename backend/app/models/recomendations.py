@@ -50,6 +50,7 @@ class RecommendationsEngine:
         search: str = f'{category}'
       elif (activity == Activities.walk):
         category: str = random.choice(self.global_pref.walk)
+        if (category == 'Архитектура'): category = 'Интересное здание'
         journey_place_type: JourneyPlaceType = JourneyPlaceType.walk
 
         search: str = f'{category}'
