@@ -72,15 +72,20 @@ class GisApi:
 
     return items
 
-  def _get_additional_fields_list(self) -> list:
+  def _get_additional_fields(self) -> list:
     return [
       'items.point', 'items.full_address_name', 'items.reviews', 'items.rubrics'
     ]
 
-  def _get_all_fields_list(self) -> list:
+  def _get_all_fields(self) -> list:
     return [
       'items.point', 'items.full_address_name', 'items.reviews', 'items.rubrics',
       'items.context'
+    ]
+
+  def _get_geoplace_additional_fields(self) -> list:
+    return [
+      'items.point', 'items.address', 'items.description'
     ]
 
   # ----- Getting city ------
@@ -187,7 +192,7 @@ class GisApi:
     }
 
     if (additional_info):
-      params['fields'] = ','.join(self._get_additional_fields_list())
+      params['fields'] = ','.join(self._get_additional_fields())
 
     items = self._get_catalog_all_items(endpoint, params)
     if (not items): return None
@@ -203,7 +208,7 @@ class GisApi:
     }
 
     if (additional_info):
-      params['fields'] = ','.join(self._get_all_fields_list())
+      params['fields'] = ','.join(self._get_all_fields())
 
     items = self._get_catalog_all_items(endpoint, params)
     if (not items): return None
@@ -229,7 +234,7 @@ class GisApi:
 
 
   # ----- Geocode ------
-  def search_geocode_by_point(self, search: str, point: GisPoint, radius: int = 500, type: PlaceType = PlaceType.ATTRACTION) -> Optional[list]:
+  def search_geoplaces_by_point(self, search: str, point: GisPoint, radius: int = 500, type: PlaceType = PlaceType.ATTRACTION) -> Optional[list]:
     """Получить список мест/заведений в указанной локации по поисковому запросу."""
     endpoint = GEOCODE_API_ENDPOINT
 
@@ -238,30 +243,11 @@ class GisApi:
       'type': str(type),
       'lon': point.lon,
       'lat': point.lat,
-      'radius': radius
+      'radius': radius,
+      'fields': self._get_geoplace_additional_fields()
     }
 
     return self._get_catalog_all_items(endpoint, params)
 
-  def get_place_geocode(self, place_id: int, additional_info: bool = False) -> Optional[list]:
-    """Получить информацию о месте/заведении по его ID."""
-    endpoint = f'{GEOCODE_API_ENDPOINT}/byid'
-
-    params = {
-      'id': place_id,
-    }
-
-    if (additional_info):
-      params['fields'] = ','.join(self._get_geocode_additional_fields_list())
-
-    items = self._get_catalog_all_items(endpoint, params)
-    if (not items): return None
-
-    return items[0]
-
-  def _get_geocode_additional_fields_list(self) -> list:
-    return [
-      'items.point', 'items.address', 'items.description'
-    ]
 
 main_gis_api: GisApi = GisApi(T_GIS_API_KEY)

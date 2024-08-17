@@ -1,4 +1,5 @@
 from typing import Union
+import random
 
 from fastapi import APIRouter
 
@@ -13,11 +14,10 @@ router = APIRouter()
 def get_root():
   log.debug('get_root')
 
-  item = main_gis_api.get_place_all_info('70000001030552091', True)
-  addr_cooment = item.get('address_comment', '')
-  gen_rating = item.get('reviews', '').get('general_rating', 0)
+  items = main_gis_api.search_geoplaces_by_point('достопримечательность', GisPoint(82.89782317789228, 54.97763635724782), 2000)
+  item = random.choice(items)
 
-  return {"root": "mock", "item": item, "com": addr_cooment, "rating": gen_rating}
+  return {"root": "mock", "item": item}
 
 @router.get("/hello")
 def get_hello():
