@@ -2,20 +2,25 @@ import pandas as pd
 import difflib
 import json
 
+RUBRIC_ID = 161
+input_file = str(RUBRIC_ID) + '_data.csv'
+output_file = str(RUBRIC_ID) + '_data_similar.csv'
+
 # Загрузить CSV файл
-df = pd.read_csv('112658_results_rating.csv')
+df = pd.read_csv(input_file)
 
 # Функция для поиска наиболее похожей строки
 def find_similar(row):
     # Применяем подходящие параметры для сравнения
-    rating = row['Rating']
+    # rating = row['Rating']
     rubric = row['Rubric']
     context = row['Context']
     
     # Поиск остальных строк
     similar_row = None
     max_similarity = -1
-    
+    max_rating = -1
+
     for _, candidate in df.iterrows():
         # Игнорируем саму строку
         if candidate['ID'] == row['ID'] or candidate['Name'] == row['Name']:
@@ -23,7 +28,8 @@ def find_similar(row):
         
         # Сравнения по рейтингам
         # rating_difference = abs(candidate['Rating'] - rating)
-        
+        rating_candidate = candidate['Rating']
+
         # Сравнение рубрик
         rubric_similarity = difflib.SequenceMatcher(None, rubric, candidate['Rubric']).ratio()
         
@@ -32,12 +38,20 @@ def find_similar(row):
         
         # Веса для каждого условия (можно настроить)
         # total_similarity = (1 / (1 + rating_difference)) + rubric_similarity + context_similarity
-        total_similarity = rating + rubric_similarity + context_similarity
-        
+        total_similarity = rubric_similarity + context_similarity
+        # print("rating = {rating}, rubric_similarity = {rubric_similarity}, context_similarity = {context_similarity}")
+        # print("Rating:", rating)
+        # print("Rubric Similarity:", rubric_similarity)
+        # print("Context Similarity:", context_similarity)
+        # print("Total Similarity:", total_similarity)
+
         # Сравниваем с максимальным
-        if total_similarity > max_similarity:
+        if total_similarity >= max_similarity:
             max_similarity = total_similarity
-            similar_row = candidate
+            if rating_candidate > max_rating:
+                max_rating = rating_candidate
+                similar_row = candidate
+            # print(similar_row)
     
     return similar_row
 
@@ -54,6 +68,6 @@ for _, row in df.iterrows():
 results_df = pd.DataFrame(results)
 
 # Сохранение результата в CSV файл
-results_df.to_csv('112658_results_rating_similar_top.csv', index=False)
+results_df.to_csv(output_file, index=False)
 
 print("Сохранение завершено!")

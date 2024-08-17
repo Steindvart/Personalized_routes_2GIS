@@ -2,8 +2,12 @@ import pandas as pd
 import difflib
 import json
 
+RUBRIC_ID = 161
+input_file = str(RUBRIC_ID) + '_data.csv'
+output_file = str(RUBRIC_ID) + '_data_similar.csv'
+
 # Загрузить CSV файл
-df = pd.read_csv('165_results_rating.csv')
+df = pd.read_csv(input_file)
 
 # Функция для поиска наиболее похожей строки
 def find_similar(row):
@@ -53,6 +57,6 @@ for _, row in df.iterrows():
 results_df = pd.DataFrame(results)
 
 # Сохранение результата в CSV файл
-results_df.to_csv('165_results_rating_similar.csv', index=False)
+results_df.to_csv(output_file, index=False)
 
 print("Сохранение завершено!")
