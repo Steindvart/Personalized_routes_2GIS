@@ -19,14 +19,24 @@ class JourneyPlace(BaseModel):
 
   @staticmethod
   def from_dict(src: dict, type: JourneyPlaceType):
-    return JourneyPlace(
-      type=type,
-      name=src["name"],
-      address=f'{src["address_name"]}, {src.get("address_comment", "")}',
-      desc='',
-      rating=src.get("reviews", {}).get("rating", 0.0),  # Используем get с значением по умолчанию 0.0
-      point=(src["point"]["lon"], src["point"]["lat"])
-    )
+    if (type == JourneyPlaceType.walk):
+      return JourneyPlace(
+        type=type,
+        desc='',
+        address='',
+        rating=0.0,
+        name= src["name"],
+        point=(src["point"]["lon"], src["point"]["lat"])
+      )
+    else:
+      return JourneyPlace(
+        type=type,
+        name=src["name"],
+        address=f'{src.get("address_name", '')}, {src.get("address_comment", '')}',
+        desc='',
+        rating=src.get("reviews", {}).get("rating", 0.0),  # Используем get с значением по умолчанию 0.0
+        point=(src["point"]["lon"], src["point"]["lat"])
+      )
 
 
 class Journey(BaseModel):
