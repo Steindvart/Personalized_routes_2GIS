@@ -64,7 +64,7 @@ export default {
 <style scoped>
 .tell_the_story_btn {
   text-transform: none;
-  margin-top: 2;
+  margin-top: 16px;
 }
 
 .subtitle_text {
