@@ -1,11 +1,19 @@
 <template>
-    <v-card class="mx-auto" max-width="600" outlined>
-      <v-card-subtitle class="subtitle_text">
-        Укажи ваше местоположение и интересуеющее вас расстояние 
-      </v-card-subtitle>
+    <v-card class="mx-auto" max-width="600" >
+    <p class="subtitle_text">
+      🤖Привет! Я молодой, но очень активный виртуальный гид! 
+    </p>
+      <p class="subtitle_text">
+        
+        😎Я с радостью поведает вам об интересных местах поблизости.  
+        (Я еще учусь - по этому могу ошибаться в предоставляемых данных.😇👉👈)
+      </p>
 
       <v-card-text>
-        <v-container>
+      <!--<v-card-subtitle class="subtitle_text">
+        Укажи ваше местоположение и интересуеющее вас расстояние 
+      </v-card-subtitle>
+         <v-container>
           <p class="input_field">Широта: {{ point[0] }}</p><p class="input_field"> Долгота: {{point[1] }}</p>
             <v-text-field
                 v-model="localradius"
@@ -14,20 +22,19 @@
                 class="input_field"
                 clearable
             ></v-text-field>
-        </v-container>
+        </v-container> 
         <v-row class="mt-4 justify-center">
             <v-col cols="auto">
-                <!-- Button to fix the place  -->
                 <v-btn color="primary" @click="fixRadius" class="show_on_map_btn" variant="outlined" rounded="xl" size="x-large">
                   Зафиксировать радиус
                 </v-btn>
             </v-col>
-        </v-row>
+        </v-row>-->
         <v-container >
             <v-row class="justify-center">
                 <v-col cols="auto" >
                     <!-- Button to find get info from GPT -->
-                    <v-btn color="primary" @click="tellTheStory" class="tell_the_story_btn" variant="outlined" rounded="xl" size="x-large">
+                    <v-btn color="green" @click="tellTheStory" class="tell_the_story_btn" variant="outlined" rounded="xl" size="x-large">
                     Расскажи историю
                     </v-btn>
                 </v-col>
@@ -42,6 +49,7 @@
   
   <script>
   import axios from 'axios'
+import { Text } from 'vue';
   
   
     export default {
@@ -78,20 +86,6 @@
         })
         }
       },
-
-        // this.$emit('coordinates-updated', {
-        //     latitude: this.latitude,
-        //     longitude: this.longitude,
-        //     this.radius: this.radius
-        // });
-
-
-    //   updateRadius() {
-    //   // Emit the updated radius and coordinates
-    //   this.$emit('coordinates-updated', {
-    //     radius: this.radius,
-    //   });
-    // }
   },
   }
   </script>
@@ -106,6 +100,13 @@
   .subtitle_text {
   word-wrap: break-word;
   white-space: normal;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #383838;
+  font-family: 'Roboto', sans-serif;
+  max-width: 1000px;
+  padding: 5px;
+
   }
   .input_field {
     font-size: 16px;

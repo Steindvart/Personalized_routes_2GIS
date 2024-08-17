@@ -1,6 +1,6 @@
 <template>
   <div> 
-    <h2>Твой личный гид</h2>
+    <h1>Твой личный гид</h1>
     <v-container class="content_wrapper">
         <info-card class="info_card"
           :point="selectedPoint"
@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       isochroneData: null, // To store the API response
-      radius: 1500
+      radius: 2500
     }
   },
   setup() {
