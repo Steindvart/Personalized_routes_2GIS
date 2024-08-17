@@ -8,19 +8,10 @@
             <template v-slot:title>
                 <span class="font-weight-black">Карта</span>
             </template>
-            <!-- <info-gpt-card @fetch-isochrone="getIsochroneData"></info-gpt-card>
+            <info-gpt-card @fetch-isochrone="getIsochroneData"></info-gpt-card>
             <div v-if="isochroneData">
                 <pre>{{ isochroneData }}</pre>
-            </div> -->
-            <v-card-text>
-            <t-gis-map
-                :center="[82.89785, 54.98021]"
-                :styles="{width: '100%', height: '870px'}"
-                :zoom="12"
-                :selectedPoint="selectedPoint"
-            ></t-gis-map>
-        </v-card-text>
-        
+            </div>
         </v-card>
     </v-container>
   </div>
@@ -44,66 +35,35 @@ export default {
     }
   },
   methods: {
-//     updateCoordinates(coordinates) {
-//       this.mapCenter = [coordinates.latitude, coordinates.longitude],
-//       this.deltatime = coordinates.radius 
-//     },
-//     async getIsochroneData({ latitude, longitude, radius }) {
-//       try {
-//         const apiKey = useRuntimeConfig().public.tGisApiKey;
-//         const isoUrl = `https://routing.api.2gis.com/get_hull?key=${apiKey}`;
-//         const response = await axios.post(isoUrl, {
-//             params: {},
-//                 header: 'Content-Type: application/json',
-//                 data: {
-//                     "start": {                  // Longitude, Latitude
-//                         "lat": center[0],
-//                         "lon": center[1]
-//                     },
-//                     "durations": timeData,// Time limit in seconds
-//                     "mode": "walking"       // Can be 'driving', 'bicycling', or 'pedestrian'
-//                 },
-//         })
-//             // Store the response data
-//         this.isochroneData = response.data;
-//     } catch (error) {
-//         console.error('Error fetching isochrone data:', error);
-//     }
-//   },
+    async getIsochroneData(coordinates) {
+    //   this.mapCenter = [coordinates.latitude, coordinates.longitude],
+    //   this.deltatime = coordinates.radius 
+      try {
+        const apiKey = 'YOUR_API_KEY'; // Replace with your actual API key
+        const isoUrl = `https://routing.api.2gis.com/2.0/isochrone?key=${apiKey}`;
 
+        const requestData = {
+          start: {
+            lat: coordinates.latitude,
+            lon: coordinates.longitude
+          },
+          durations: [coordinates.radius*60],       // Time in seconds (e.g., 10 and 20 minutes)
+          mode: 'walking'               // Can be 'driving', 'bicycling', or 'pedestrian'
+        };
 
+        const response = await axios.post(isoUrl, requestData, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
 
+        console.log('Isochrone Data:', response.data);  // Handle the response data
+        this.isochroneData = response.data;
 
-
-    // async getIsochroneData(coordinates) {
-    // //   this.mapCenter = [coordinates.latitude, coordinates.longitude],
-    // //   this.deltatime = coordinates.radius 
-    //   try {
-    //     const apiKey = 'YOUR_API_KEY'; // Replace with your actual API key
-    //     const isoUrl = `https://routing.api.2gis.com/2.0/isochrone?key=${apiKey}`;
-
-    //     const requestData = {
-    //       start: {
-    //         lat: coordinates.latitude,
-    //         lon: coordinates.longitude
-    //       },
-    //       durations: [coordinates.radius*60],       // Time in seconds (e.g., 10 and 20 minutes)
-    //       mode: 'walking'               // Can be 'driving', 'bicycling', or 'pedestrian'
-    //     };
-
-    //     const response = await axios.post(isoUrl, requestData, {
-    //       headers: {
-    //         'Content-Type': 'application/json'
-    //       }
-    //     });
-
-    //     console.log('Isochrone Data:', response.data);  // Handle the response data
-    //     this.isochroneData = response.data;
-
-    //   } catch (error) {
-    //     console.error('Error fetching isochrone data:', error);
-    //   }
-    // },
+      } catch (error) {
+        console.error('Error fetching isochrone data:', error);
+      }
+    },
 }
 }
 </script>
