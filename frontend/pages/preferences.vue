@@ -7,31 +7,54 @@
     <p class="description mt-3">
       😉 Но, не переживай, ты их можешь изменить в любой момент.
     </p>
-    <preferences-section
-      title="Еда"
-      :items="foodItems"
-      v-model="selectedFood"
-    />
-    <preferences-section
-      title="Кухня"
-      :items="foodStyleItems"
-      v-model="selectedFoodStyle"
-    />
-    <preferences-section
-      title="Прогулки"
-      :items="walkItems"
-      v-model="selectedWalk"
-    />
-    <preferences-section
-      title="Развлечения"
-      :items="funItems"
-      v-model="selectedFunn"
-    />
-    <preferences-section
-      title="Стиль"
-      :items="styleItems"
-      v-model="selectedStyle"
-    />
+    <v-row>
+      <v-col>
+        <preferences-section
+          title="Еда"
+          :items="foodItems"
+          v-model="selectedFood"
+        />
+        <preferences-section
+          title="Кухня"
+          :items="foodStyleItems"
+          v-model="selectedFoodStyle"
+        />
+        <preferences-section
+          title="Прогулки"
+          :items="walkItems"
+          v-model="selectedWalk"
+        />
+        <preferences-section
+          title="Развлечения"
+          :items="funItems"
+          v-model="selectedFunn"
+        />
+        <preferences-section
+          title="Стиль"
+          :items="styleItems"
+          v-model="selectedStyle"
+        />
+      </v-col>
+      <v-col>
+        <preferences-section
+          title="Места, которые нравятся - Еда"
+          :items="placesFoodItems"
+          v-model="selectedStyle"
+        />
+
+        <preferences-section
+          title="Места, которые нравятся - Прогулки"
+          :items="placesWalkItems"
+          v-model="selectedPlacesWalk"
+        />
+        <preferences-section
+          title="Места, которые нравятся - Развлечения"
+          :items="placesFunnItems"
+          v-model="selectedPlacesFunn"
+        />
+      </v-col>
+    </v-row>
+
 
     <br />
     <v-btn
@@ -98,11 +121,33 @@ export default {
         { text: "Одному", value: 4 },
       ],
 
+      placesFoodItems: [
+        { text: "Вилка Ложка", value: 1 },
+        { text: "Шашлыкoff", value: 2 },
+        { text: "Хан Буз", value: 3 },
+      ],
+
+      placesWalkItems: [
+        { text: "Михайловская набережная", value: 1 },
+        { text: "Заельцовский парк", value: 2 },
+        { text: "Театр оперы и балета", value: 3 },
+      ],
+
+      placesFunnItems: [
+        { text: "Друзья", value: 1 },
+        { text: "FILET #мяsObar ", value: 3 },
+        { text: "21 этаж", value: 4 },
+      ],
+
       selectedFood: [],
       selectedFoodStyle: [],
       selectedWalk: [],
       selectedFunn: [],
       selectedStyle: [],
+      selectedPlacesFood: [],
+      selectedPlacesFoodStyle: [],
+      selectedPlacesWalk: [],
+      selectedPlacesFunn: [],
     };
   },
 
