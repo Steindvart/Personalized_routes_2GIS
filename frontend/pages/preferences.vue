@@ -19,6 +19,21 @@
           :items="foodStyleItems"
           v-model="selectedFoodStyle"
         />
+        <preferences-section
+          title="Прогулки"
+          :items="walkItems"
+          v-model="selectedWalk"
+        />
+        <preferences-section
+          title="Развлечения"
+          :items="funItems"
+          v-model="selectedFunn"
+        />
+        <preferences-section
+          title="Стиль"
+          :items="styleItems"
+          v-model="selectedStyle"
+        />
       </v-col>
       <v-col>
         <preferences-section
@@ -26,23 +41,28 @@
           :items="placesFoodItems"
           v-model="selectedStyle"
         />
+        <preferences-section
+          title="Места, которые нравятся - Кухня"
+          :items="placesFoodStyleItems"
+          v-model="selectedFoodStyle"
+        />
+        <preferences-section
+          title="Места, которые нравятся - Прогулки"
+          :items="placesWalkItems"
+          v-model="selectedPlacesWalk"
+        />
+        <preferences-section
+          title="Места, которые нравятся - Развлечения"
+          :items="placesFunnItems"
+          v-model="selectedPlacesFunn"
+        />
+        <preferences-section
+          title="Места, которые нравятся - Стиль"
+          :items="placesStyleItems"
+          v-model="selectedStyle"
+        />
       </v-col>
     </v-row>
-    <preferences-section
-      title="Прогулки"
-      :items="walkItems"
-      v-model="selectedWalk"
-    />
-    <preferences-section
-      title="Развлечения"
-      :items="funItems"
-      v-model="selectedFunn"
-    />
-    <preferences-section
-      title="Стиль"
-      :items="styleItems"
-      v-model="selectedStyle"
-    />
 
 
     <br />
@@ -116,6 +136,38 @@ export default {
         { text: "Фоконг", value: 3 },
         { text: "Мармелад", value: 4 },
       ],
+      
+      placesFoodStyleItems: [
+        { text: "ДРУЖБА", value: 1 },
+        { text: "Лето", value: 2 },
+        { text: "Минори", value: 3 },
+        { text: "Молочай", value: 4 },
+      ],
+
+      placesWalkItems: [
+        { text: "Михайловская набережная", value: 1 },
+        { text: "Заельцовский парк", value: 2 },
+        { text: "Скульптура Виктору Цою", value: 3 },
+        { text: "Фонтан - каскад", value: 4 },
+        { text: "Театр оперы и балета", value: 5 },
+        { text: "Новосибирский Государственный Цирк", value: 6 },
+      ],
+
+      placesFunnItems: [
+        { text: "Эйфория", value: 1 },
+        { text: "Интра Лофт", value: 2 },
+        { text: "FILET #мяsObar ", value: 3 },
+        { text: "21 этаж", value: 4 },
+        { text: "Shisha", value: 5 },
+        { text: "Sova bien", value: 6 },
+      ],
+
+      placesStyleItems: [
+        { text: "Sova bien", value: 1 },
+        { text: "Заельцовский парк", value: 2 },
+        { text: "Шашлыкофф", value: 3 },
+        { text: "Театр оперы и балета", value: 4 },
+      ],
 
       selectedFood: [],
       selectedFoodStyle: [],
@@ -123,6 +175,10 @@ export default {
       selectedFunn: [],
       selectedStyle: [],
       selectedPlacesFood: [],
+      selectedPlacesFoodStyle: [],
+      selectedPlacesWalk: [],
+      selectedPlacesFunn: [],
+      selectedPlacesStyle: [],
     };
   },
 
