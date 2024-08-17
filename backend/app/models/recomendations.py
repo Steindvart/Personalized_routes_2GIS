@@ -48,26 +48,35 @@ class RecommendationsEngine:
         journey_place_type: JourneyPlaceType = JourneyPlaceType.fun
 
         search: str = f'{category}'
+      elif (activity == Activities.walk):
+        category: str = random.choice(self.global_pref.walk)
+        if (category == 'Архитектура'): category = 'Интересное здание'
+        journey_place_type: JourneyPlaceType = JourneyPlaceType.walk
+
+        search: str = f'{category}'
 
       radius = RADIUS_DEFAULT
       places: list[dict] | None = None
 
-      if (activity != Activities.walk):
-        type: PlaceType = PlaceType.ORG
-        while radius <= RADIUS_LIMIT:
-          places = main_gis_api.search_places_by_point(search, location, radius, type)
-          if places:
-            break
-          radius += RADIUS_DEFAULT
-
-        # NOTE - AI here!
+      while radius <= RADIUS_LIMIT:
+        if (activity != Activities.walk):
+          places = main_gis_api.search_places_by_point(search, location, radius)
+        elif (activity == Activities.walk):
+          places = main_gis_api.search_geoplaces_by_point(search, location, radius)
         if places:
-          selected_place = random.choice(places[:100])
+          break
+        radius += RADIUS_DEFAULT
+          
+      # NOTE - AI here!
+      if places:
+        selected_place = random.choice(places[:100])
+        if (activity != Activities.walk):
           place_id = selected_place['id']
           place = main_gis_api.get_place(place_id, True)
-          journey_place: JourneyPlace = JourneyPlace.from_dict(place, journey_place_type)
-          journey.places.append(journey_place)
         elif (activity == Activities.walk):
-          pass
+          place = selected_place
+
+        journey_place: JourneyPlace = JourneyPlace.from_dict(place, journey_place_type)
+        journey.places.append(journey_place)
 
     return journey
