@@ -4,6 +4,8 @@ from enum import Enum
 
 import logging as log
 
+from ..config import T_GIS_API_KEY
+
 CATALOG_API_URL: str = 'https://catalog.api.2gis.com'
 PLACES_API_ENDPOINT: str = '/3.0/items'
 
@@ -16,16 +18,16 @@ class PlaceType(Enum):
     return self.value
 
 
-class tGisPoint():
-  def __init__(self, lat: float, lon: float) -> None:
-    self.lat: float = lat
+class GisPoint():
+  def __init__(self, lon: float, lat: float) -> None:
     self.lon: float = lon
+    self.lat: float = lat
 
 
 # TODO - type for fields param
 
 
-class tGisApi:
+class GisApi:
   # ----- Common ------
   def __init__(self, api_key: str) -> None:
     self.api_key = api_key
@@ -69,13 +71,10 @@ class tGisApi:
 
     return items
 
-
   def _get_additional_fields_list(self) -> list:
     return [
-      'items.flags', 'items.full_address_name', 'items.schedule',
-      'items.external_content', 'items.reviews', 'items.attribute_groups'
+      'items.point', 'items.full_address_name', 'items.reviews'
     ]
-
 
   # ----- Getting city ------
   def get_city_id(self, city: str) -> Optional[int]:
@@ -157,7 +156,7 @@ class tGisApi:
     return self._get_catalog_all_items(endpoint, params)
 
 
-  def search_places_by_point(self, search: str, point: tGisPoint, radius: int = 500, type: PlaceType = PlaceType.ORG) -> Optional[list]:
+  def search_places_by_point(self, search: str, point: GisPoint, radius: int = 500, type: PlaceType = PlaceType.ORG) -> Optional[list]:
     """Получить список мест/заведений в указанной локации по поисковому запросу."""
     endpoint = PLACES_API_ENDPOINT
 
@@ -205,3 +204,6 @@ class tGisApi:
     if (not place): return None
 
     return place.get('attribute_groups', {})
+
+
+main_gis_api: GisApi = GisApi(T_GIS_API_KEY)

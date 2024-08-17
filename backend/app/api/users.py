@@ -20,6 +20,9 @@ def list_user(db: Session = Depends(get_db)):
 
 @router.post("/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+  db_user_exists = db.query(models.User).filter(models.User.email == user.email).first()
+  if db_user_exists:
+    raise HTTPException(status_code=400, detail="User with a specified email already exists. Use another email.")
   db_user = models.User(email=user.email, name=user.name, password=user.password)
   db.add(db_user)
   db.commit()

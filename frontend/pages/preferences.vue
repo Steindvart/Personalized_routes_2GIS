@@ -1,10 +1,21 @@
 <template>
   <div class="preferences-group-container">
     <h1>Постоянные предпочтения</h1>
+    <p class="description mt-3">
+      ✅ В каждой категории выбери то, что тебе обычно больше нравится. Это будут твои "постоянные предпочтения", которые будут учитываться при каждой генерации маршрута путешествия.
+    </p>
+    <p class="description mt-3">
+      😉 Но, не переживай, ты их можешь изменить в любой момент.
+    </p>
     <preferences-section
       title="Еда"
       :items="foodItems"
       v-model="selectedFood"
+    />
+    <preferences-section
+      title="Кухня"
+      :items="foodStyleItems"
+      v-model="selectedFoodStyle"
     />
     <preferences-section
       title="Прогулки"
@@ -26,12 +37,22 @@
     <v-btn
       color="primary"
       @click="savePreferences"
-      class="save-btn"
+      class="save-btn mr-2"
       variant="outlined"
       rounded="xl"
       size="large"
     >
       Сохранить
+    </v-btn>
+    <v-btn
+      color="green"
+      class="save-btn"
+      variant="outlined"
+      rounded="xl"
+      size="large"
+      @click="goToRouteGenerator"
+    >
+      Настроить маршрут
     </v-btn>
   </div>
 </template>
@@ -51,8 +72,11 @@ export default {
         { text: "Кафе", value: 1 },
         { text: "Рестораны", value: 2 },
         { text: "Фаст-фуд", value: 3 },
-        { text: "Европейская кухня", value: 4 },
-        { text: "Азиатская кухня", value: 5 },
+      ],
+
+      foodStyleItems: [
+        { text: "Европейская кухня", value: 1 },
+        { text: "Азиатская кухня", value: 2 },
       ],
 
       walkItems: [
@@ -64,10 +88,7 @@ export default {
       funItems: [
         { text: "Антикафе", value: 1 },
         { text: "Бар", value: 2 },
-        { text: "Клуб", value: 3 },
-        { text: "Кальян", value: 4 },
-        { text: "Караоке", value: 5 },
-        { text: "Игры/Видеоигры", value: 6 },
+        { text: "Караоке", value: 3 },
       ],
 
       styleItems: [
@@ -78,16 +99,43 @@ export default {
       ],
 
       selectedFood: [],
+      selectedFoodStyle: [],
       selectedWalk: [],
       selectedFunn: [],
       selectedStyle: [],
     };
   },
 
+  async created() {
+    await this.fetchPreferences();
+  },
+
   methods: {
+    async fetchPreferences() {
+      try {
+        const response = await axios.get("http://localhost:8000/api/preferences/simple");
+        const { preferences } = response.data;
+
+        this.selectedFood = this.foodItems.filter(item => preferences.food.includes(item.text));
+        this.selectedFoodStyle = this.foodStyleItems.filter(item => preferences.foodStyle.includes(item.text));
+        this.selectedWalk = this.walkItems.filter(item => preferences.walk.includes(item.text));
+        this.selectedFunn = this.funItems.filter(item => preferences.fun.includes(item.text));
+        this.selectedStyle = this.styleItems.filter(item => preferences.style.includes(item.text));
+
+      } catch (error) {
+        console.error("Error fetching preferences:", error);
+      }
+    },
+
+    goToRouteGenerator() {
+      this.savePreferences();
+      this.$router.push('/generator');
+    },
+
     async savePreferences() {
       const preferences = {
         food: this.selectedFood.map(item => item.text),
+        foodStyle: this.selectedFoodStyle.map(item => item.text),
         walk: this.selectedWalk.map(item => item.text),
         fun: this.selectedFunn.map(item => item.text),
         style: this.selectedStyle.map(item => item.text),
@@ -106,3 +154,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.description {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #383838;
+  font-family: 'Roboto', sans-serif;
+  max-width: 800px;
+}
+</style>
