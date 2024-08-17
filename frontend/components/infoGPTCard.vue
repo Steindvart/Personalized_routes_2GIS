@@ -1,93 +1,82 @@
 <template>
-    <v-card class="mx-auto" max-width="600" >
-    <p class="subtitle_text">
-      🤖Привет! Я молодой, но очень активный виртуальный гид! 
-    </p>
+  <v-card class="mx-auto" max-width="600">
+    <v-card-text>
       <p class="subtitle_text">
-        
-        😎Я с радостью поведает вам об интересных местах поблизости.  
-        (Я еще учусь - по этому могу ошибаться в предоставляемых данных.😇👉👈)
+        🤖 Привет! Я твой виртуальный гид и готов рассказать тебе об интересных местах поблизости.
       </p>
+      <v-alert
+        text="Я еще учусь - поэтому могу ошибаться в предоставляемых данных."
+        title="Возможны ошибки!"
+        type="warning"
+      ></v-alert>
+      <v-row class="justify-center mb-4">
+        <v-btn
+          color="green"
+          @click="fetchStory"
+          class="tell_the_story_btn"
+          :loading="loading"
+          variant="outlined"
+          rounded="xl"
+          size="large">
+          Расскажи историю
+        </v-btn>
+      </v-row>
+      <v-skeleton-loader v-if="loading" class="mt-4" type="article" />
+      <div v-else-if="story" class="story_text">
+        <v-alert
+          color="primary"
+          theme="dark"
+          prominent
+        >
+          {{ story }}
+        </v-alert>
+      </div>
+      <div v-else class="story_text">
+        <v-alert
+          title="История будет здесь, когда ты нажмёшь на кнопку."
+          color="primary"
+          theme="dark"
+          prominent
+        >
+        </v-alert>
+      </div>
+    </v-card-text>
+  </v-card>
+</template>
 
-      <v-card-text>
-        <v-container >
-            <v-row class="justify-center">
-                <v-col cols="auto" >
-                    <!-- Button to find get info from GPT -->
-                    <v-btn color="green" @click="tellTheStory" class="tell_the_story_btn" variant="outlined" rounded="xl" size="x-large">
-                    Расскажи историю
-                    </v-btn>
-                </v-col>
-            </v-row>
-            <div class="story_text">{{ storyText }}</div>
-        </v-container>
-
-  
-      </v-card-text>
-    </v-card>
-  </template>
-  
-  <script>
-  import axios from 'axios'
-import { Text } from 'vue';
-  
-  
-    export default {
-      props: {
-        point: {
-          type: Array,
-          default: () => [0, 0],
-        },
-        radius: {
-          type: Number,
-        }
-      },
-
-    data() {
-        return {
-          localradius: this.radius,
-          storyText: 'This is where the text will be displayed.'
-        }
-    },
-
-    methods: {
-        tellTheStory() {
-
-        this.storyText = 'Ну а тут дыра в стене, на полу на самом дне. Там есть девочка в стене, на полу на самом дне....'
-        // OUTPUT OF GPT API GOES HERE!
-        },
-
-        fixRadius() {
-        if(this.point[0] !==0 && this.point[1] !==0){
-          this.$emit('radius-updated', {
-            radius: localradius
-        })
-        }
-      },
+<script>
+export default {
+  props: {
+    point: Array,
+    radius: Number,
+    loading: Boolean,
+    story: String,
   },
+  methods: {
+    fetchStory() {
+      this.$emit('fetch-story');
+    }
   }
-  </script>
-  
-  <style scoped>
-  .tell_the_story_btn {
-    text-transform: none;
-  }
-  .subtitle_text {
-  word-wrap: break-word;
-  white-space: normal;
+}
+</script>
+
+<style scoped>
+.tell_the_story_btn {
+  text-transform: none;
+}
+
+.subtitle_text {
   font-size: 1rem;
   line-height: 1.5;
   color: #383838;
   font-family: 'Roboto', sans-serif;
-  max-width: 1000px;
-  padding: 5px;
-  }
+}
 
-  .story_text{
-    font-size: 16px; /* Customize font size */
-    padding: 5px;
-    /* border: 1px solid #ccc;*/
-    background-color: #f9f9f931;
-  }
-  </style>
-  
+.story_text {
+  font-size: 16px;
+  padding: 5px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  color: #424242;
+}
+</style>
