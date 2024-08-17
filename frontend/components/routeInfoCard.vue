@@ -14,7 +14,7 @@
           size="large"
         >
           <v-card>
-            <v-card-title :class="['text-h6', `bg-${item.color}`]">
+            <v-card-title :class="['text-h6', `bg-${item.color}`, 'title-wrap']">
               {{ item.name }}
             </v-card-title>
             <v-card-text
@@ -54,8 +54,6 @@ export default {
   },
   computed: {
     itemsWithIconsAndColors() {
-      console.info(this.items)
-
       return this.items.map(item => {
         let icon = '';
         let color = '';
@@ -100,6 +98,12 @@ export default {
 </script>
 
 <style scoped>
+.title-wrap {
+  white-space: normal; /* Позволяет переносу текста */
+  word-wrap: break-word; /* Переносит длинные слова */
+  overflow-wrap: break-word; /* Переносит текст, если слишком длинный */
+}
+
 .limited-width {
   max-width: 400px;
   font-family: 'Roboto', sans-serif;
@@ -110,5 +114,4 @@ export default {
   font-size: 14px;
   line-height: 1.3;
 }
-
 </style>
