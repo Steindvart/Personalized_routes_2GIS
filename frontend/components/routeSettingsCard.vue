@@ -73,7 +73,7 @@
 
       <!-- Кнопка "Начать путешествие" по центру внизу элементов -->
       <div class="start-journey-container">
-        <v-btn color="primary" @click="startJourney" class="start-journey-btn" variant="outlined" rounded="xl" size="x-large" block>
+        <v-btn color="primary" @click="startJourney" class="start-journey-btn" variant="outlined" rounded="xl" size="x-large" :loading="loading" block>
           Начать путешествие
         </v-btn>
       </div>
