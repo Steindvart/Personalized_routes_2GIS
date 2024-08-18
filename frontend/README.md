@@ -2,6 +2,13 @@
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
+## Installing key
+
+Create **.env** file in /frontend:
+```
+TGIS_API_KEY="<key here>"
+```
+
 ## Setup
 
 Make sure to install the dependencies:
