@@ -4,8 +4,14 @@ from enum import Enum
 
 import logging as log
 
+from ..config import T_GIS_API_KEY
+
 CATALOG_API_URL: str = 'https://catalog.api.2gis.com'
 PLACES_API_ENDPOINT: str = '/3.0/items'
+GEOCODE_API_ENDPOINT: str = '/3.0/items/geocode'
+
+ROUTING_API_URL: str = 'http://routing.api.2gis.com'
+DISTANCE_API_ENDPOINT: str = '/get_dist_matrix'
 
 class PlaceType(Enum):
   ORG = 'branch'
@@ -17,9 +23,9 @@ class PlaceType(Enum):
 
 
 class GisPoint():
-  def __init__(self, lat: float, lon: float) -> None:
-    self.lat: float = lat
+  def __init__(self, lon: float, lat: float) -> None:
     self.lon: float = lon
+    self.lat: float = lat
 
 
 # TODO - type for fields param
@@ -31,20 +37,32 @@ class GisApi:
     self.api_key = api_key
 
 
-  def _make_request(self, url: str, params: dict) -> dict:
+  def _make_request(self, url: str, params: dict | None = None, body: dict | None = None, method: str = "GET") -> dict:
     """Внутренний метод для выполнения HTTP-запросов к API."""
     log.debug(url)
-    response = requests.get(url, params=params)
+
+    params = params or {}
+    params['key'] = self.api_key
+
+    if method == "POST":
+      response = requests.post(url, params=params, json=body)
+    elif method == "PUT":
+      response = requests.put(url, params=params, json=body)
+    elif method == "DELETE":
+      response = requests.delete(url, params=params, json=body)
+    else:
+      response = requests.get(url, params=params)
+
     response.raise_for_status()
     return response.json()
 
-
   def _make_catalog_request(self, endpoint: str, params: dict) -> dict:
     url = f"{CATALOG_API_URL}{endpoint}"
-    params['key'] = self.api_key
-
     return self._make_request(url, params)
 
+  def _make_routing_request(self, endpoint: str, body: dict) -> dict:
+    url = f"{ROUTING_API_URL}{endpoint}"
+    return self._make_request(url, {}, body, 'POST')
 
   def _get_catalog_all_items(self, endpoint: str, params: dict) -> Optional[list]:
     """Получить элементы со всех страниц пагинации данных."""
@@ -69,13 +87,21 @@ class GisApi:
 
     return items
 
-
-  def _get_additional_fields_list(self) -> list:
+  def _get_additional_fields(self) -> list:
     return [
-      'items.flags', 'items.full_address_name', 'items.schedule',
-      'items.external_content', 'items.reviews', 'items.attribute_groups'
+      'items.point', 'items.full_address_name', 'items.reviews', 'items.rubrics'
     ]
 
+  def _get_all_fields(self) -> list:
+    return [
+      'items.point', 'items.full_address_name', 'items.reviews', 'items.rubrics',
+      'items.context'
+    ]
+
+  def _get_geoplace_additional_fields(self) -> list:
+    return [
+      'items.point', 'items.address', 'items.description'
+    ]
 
   # ----- Getting city ------
   def get_city_id(self, city: str) -> Optional[int]:
@@ -172,7 +198,7 @@ class GisApi:
     return self._get_catalog_all_items(endpoint, params)
 
 
-  def get_place(self, place_id: int, additional_info: bool = False) -> Optional[list]:
+  def get_place(self, place_id: int, additional_info: bool = False) -> dict | None:
     """Получить информацию о месте/заведении по его ID."""
     endpoint = f'{PLACES_API_ENDPOINT}/byid'
 
@@ -181,13 +207,28 @@ class GisApi:
     }
 
     if (additional_info):
-      params['fields'] = ','.join(self._get_additional_fields_list())
+      params['fields'] = ','.join(self._get_additional_fields())
 
     items = self._get_catalog_all_items(endpoint, params)
     if (not items): return None
 
     return items[0]
 
+  def get_place_all_info(self, place_id: int, additional_info: bool = False) -> dict | None:
+    """Получить информацию о месте/заведении по его ID."""
+    endpoint = f'{PLACES_API_ENDPOINT}/byid'
+
+    params = {
+      'id': place_id,
+    }
+
+    if (additional_info):
+      params['fields'] = ','.join(self._get_all_fields())
+
+    items = self._get_catalog_all_items(endpoint, params)
+    if (not items): return None
+
+    return items[0]
 
   def get_place_reviews(self, place_id: int) -> Optional[dict]:
     """Получить рейтинг места/заведения по его ID."""
@@ -205,3 +246,43 @@ class GisApi:
     if (not place): return None
 
     return place.get('attribute_groups', {})
+
+
+  # ----- Geocode ------
+  def search_geoplaces_by_point(self, search: str, point: GisPoint, radius: int = 500, type: PlaceType = PlaceType.ATTRACTION) -> Optional[list]:
+    """Получить список гео-мест в указанной локации по поисковому запросу."""
+    endpoint = GEOCODE_API_ENDPOINT
+
+    params = {
+      'q': f'{search}',
+      'type': str(type),
+      'lon': point.lon,
+      'lat': point.lat,
+      'radius': radius,
+      'fields': self._get_geoplace_additional_fields()
+    }
+
+    return self._get_catalog_all_items(endpoint, params)
+
+  # ----- Distance ------
+  def get_distance(self, point1: GisPoint, point2: GisPoint) -> Optional[int]:
+    """Получить расстояние между двумя точками в метрах."""
+    endpoint = DISTANCE_API_ENDPOINT
+
+    body: dict = {
+      "points": [
+        {"lat": point1.lat, "lon": point1.lon},
+        {"lat": point2.lat, "lon": point2.lon}
+      ],
+      "sources": [0],
+      "targets": [1]
+    }
+
+    data = self._make_routing_request(endpoint, body)
+    routes = data.get('routes', {})
+    distance = routes[0].get('distance', 0)
+
+    return distance
+
+
+main_gis_api: GisApi = GisApi(T_GIS_API_KEY)

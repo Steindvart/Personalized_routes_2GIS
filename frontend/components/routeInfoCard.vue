@@ -14,11 +14,15 @@
           size="large"
         >
           <v-card>
-            <v-card-title :class="['text-h6', `bg-${item.color}`]">
+            <v-card-title :class="['text-h6', `bg-${item.color}`, 'title-wrap']">
               {{ item.name }}
             </v-card-title>
-            <v-card-text v-if="item.desc" class="bg-white text--primary limited-width">
-              <p class="description">{{ item.desc }}</p>
+            <v-card-text
+              v-if="item.desc || item.address || (item.rating && item.rating != 0)"
+              class="bg-white text--primary limited-width"
+            >
+              <p v-if="item.address" class="description">{{ item.address }}</p>
+              <p v-if="item.desc" class="description">{{ item.desc }}</p>
               <v-chip v-if="item.rating"
                 append-icon="mdi-star"
                 class="mt-2"
@@ -31,9 +35,8 @@
         </v-timeline-item>
       </v-timeline>
 
-      <!-- Кнопка "Начать путешествие" по центру внизу элементов -->
       <div class="start-journey-container">
-        <v-btn color="teal" @click="startJourney" class="start-journey-btn" variant="outlined" rounded="xl" size="large">
+        <v-btn color="teal" @click="rebuildJourney" class="start-journey-btn" variant="outlined" rounded="xl" size="large">
           Перенастроить маршрут
         </v-btn>
       </div>
@@ -86,7 +89,8 @@ export default {
     },
   },
   methods: {
-    startJourney() {
+    rebuildJourney() {
+      this.$router.push('/generator');
       console.log("Перенастройка маршрута", this.items);
     },
   },
@@ -94,6 +98,12 @@ export default {
 </script>
 
 <style scoped>
+.title-wrap {
+  white-space: normal; /* Позволяет переносу текста */
+  word-wrap: break-word; /* Переносит длинные слова */
+  overflow-wrap: break-word; /* Переносит текст, если слишком длинный */
+}
+
 .limited-width {
   max-width: 400px;
   font-family: 'Roboto', sans-serif;
@@ -104,5 +114,4 @@ export default {
   font-size: 14px;
   line-height: 1.3;
 }
-
 </style>

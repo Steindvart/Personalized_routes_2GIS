@@ -7,26 +7,54 @@
     <p class="description mt-3">
       😉 Но, не переживай, ты их можешь изменить в любой момент.
     </p>
-    <preferences-section
-      title="Еда"
-      :items="foodItems"
-      v-model="selectedFood"
-    />
-    <preferences-section
-      title="Прогулки"
-      :items="walkItems"
-      v-model="selectedWalk"
-    />
-    <preferences-section
-      title="Развлечения"
-      :items="funItems"
-      v-model="selectedFunn"
-    />
-    <preferences-section
-      title="Стиль"
-      :items="styleItems"
-      v-model="selectedStyle"
-    />
+    <v-row>
+      <v-col>
+        <preferences-section
+          title="Еда"
+          :items="foodItems"
+          v-model="selectedFood"
+        />
+        <preferences-section
+          title="Кухня"
+          :items="foodStyleItems"
+          v-model="selectedFoodStyle"
+        />
+        <preferences-section
+          title="Прогулки"
+          :items="walkItems"
+          v-model="selectedWalk"
+        />
+        <preferences-section
+          title="Развлечения"
+          :items="funItems"
+          v-model="selectedFunn"
+        />
+        <preferences-section
+          title="Стиль"
+          :items="styleItems"
+          v-model="selectedStyle"
+        />
+      </v-col>
+      <v-col>
+        <preferences-section
+          title="Места, которые нравятся - Еда"
+          :items="placesFoodItems"
+          v-model="selectedPlacesFood"
+        />
+
+        <preferences-section
+          title="Места, которые нравятся - Прогулки"
+          :items="placesWalkItems"
+          v-model="selectedPlacesWalk"
+        />
+        <preferences-section
+          title="Места, которые нравятся - Развлечения"
+          :items="placesFunnItems"
+          v-model="selectedPlacesFunn"
+        />
+      </v-col>
+    </v-row>
+
 
     <br />
     <v-btn
@@ -45,7 +73,6 @@
       variant="outlined"
       rounded="xl"
       size="large"
-      large
       @click="goToRouteGenerator"
     >
       Настроить маршрут
@@ -68,8 +95,11 @@ export default {
         { text: "Кафе", value: 1 },
         { text: "Рестораны", value: 2 },
         { text: "Фаст-фуд", value: 3 },
-        { text: "Европейская кухня", value: 4 },
-        { text: "Азиатская кухня", value: 5 },
+      ],
+
+      foodStyleItems: [
+        { text: "Европейская кухня", value: 1 },
+        { text: "Азиатская кухня", value: 2 },
       ],
 
       walkItems: [
@@ -81,10 +111,7 @@ export default {
       funItems: [
         { text: "Антикафе", value: 1 },
         { text: "Бар", value: 2 },
-        { text: "Клуб", value: 3 },
-        { text: "Кальян", value: 4 },
-        { text: "Караоке", value: 5 },
-        { text: "Игры/Видеоигры", value: 6 },
+        { text: "Караоке", value: 3 },
       ],
 
       styleItems: [
@@ -94,21 +121,65 @@ export default {
         { text: "Одному", value: 4 },
       ],
 
+      placesFoodItems: [
+        { text: "Вилка Ложка", value: 1 },
+        { text: "Шашлыкoff", value: 2 },
+        { text: "Хан Буз", value: 3 },
+      ],
+
+      placesWalkItems: [
+        { text: "Михайловская набережная", value: 1 },
+        { text: "Заельцовский парк", value: 2 },
+        { text: "Театр оперы и балета", value: 3 },
+      ],
+
+      placesFunnItems: [
+        { text: "Друзья", value: 1 },
+        { text: "FILET #мяsObar ", value: 3 },
+        { text: "21 этаж", value: 4 },
+      ],
+
       selectedFood: [],
+      selectedFoodStyle: [],
       selectedWalk: [],
       selectedFunn: [],
       selectedStyle: [],
+      selectedPlacesFood: [],
+      selectedPlacesWalk: [],
+      selectedPlacesFunn: [],
     };
   },
 
+  async created() {
+    await this.fetchPreferences();
+  },
+
   methods: {
+    async fetchPreferences() {
+      try {
+        const response = await axios.get("http://localhost:8000/api/preferences/simple");
+        const { preferences } = response.data;
+
+        this.selectedFood = this.foodItems.filter(item => preferences.food.includes(item.text));
+        this.selectedFoodStyle = this.foodStyleItems.filter(item => preferences.foodStyle.includes(item.text));
+        this.selectedWalk = this.walkItems.filter(item => preferences.walk.includes(item.text));
+        this.selectedFunn = this.funItems.filter(item => preferences.fun.includes(item.text));
+        this.selectedStyle = this.styleItems.filter(item => preferences.style.includes(item.text));
+
+      } catch (error) {
+        console.error("Error fetching preferences:", error);
+      }
+    },
+
     goToRouteGenerator() {
       this.savePreferences();
       this.$router.push('/generator');
     },
+
     async savePreferences() {
       const preferences = {
         food: this.selectedFood.map(item => item.text),
+        foodStyle: this.selectedFoodStyle.map(item => item.text),
         walk: this.selectedWalk.map(item => item.text),
         fun: this.selectedFunn.map(item => item.text),
         style: this.selectedStyle.map(item => item.text),
@@ -136,5 +207,4 @@ export default {
   font-family: 'Roboto', sans-serif;
   max-width: 800px;
 }
-
 </style>

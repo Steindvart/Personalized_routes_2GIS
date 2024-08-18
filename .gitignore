@@ -1,3 +1,7 @@
+# local env
+.vscode/
+.idea/
+
 # Virtual environment
 .venv/
 venv/

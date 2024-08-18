@@ -95,18 +95,19 @@ export default {
   data() {
     return {
       activities: ['Поесть'],
-      activityOptions: ['Поесть', 'Погулять', 'Развлечься', 'Шопинг'],
+      activityOptions: ['Поесть', 'Погулять', 'Развлечься'],
       averageCheck: 1500,
       averageCheckOptions: [500, 1000, 1500, 2000, 3000],
-      totalTime: '2 часа',
+      totalTime: '4 часа',
       totalTimeOptions: ['1 час', '2 часа', '3 часа', '4 часа', 'Более 4 часов'],
-      wayType: 'Общественный транспорт',
+      wayType: 'Пешком',
       wayTypeOptions: ['Пешком', 'Автомобиль', 'Общественный транспорт'],
       wantSomethingNew: false,
       error: false,
       errorMessage: ''
     }
   },
+
   methods: {
     addActivity() {
       if (this.activities.length < 4) {
@@ -142,15 +143,23 @@ export default {
         wantSomethingNew: this.wantSomethingNew,
         wayType: this.wayType,
         point: {
-          lat: this.point[0],
-          lon: this.point[1],
+          lon: this.point[0],
+          lat: this.point[1],
         },
       }
 
       try {
         // Отправка данных на сервер
         const response = await axios.post('http://localhost:8000/api/generate-journey', routePreferences)
-        console.log('Маршрут сгенерирован:', response.data)
+        console.info(response.data)
+        const routeData = response.data.data.places
+
+        // Сохранение данных в localStorage
+        console.info(routeData)
+        localStorage.setItem('routeData', JSON.stringify(routeData));
+
+        // Переход на страницу journey
+        this.$router.push({ name: 'journey' });
       } catch (error) {
         console.error('Ошибка при генерации маршрута:', error)
       }
@@ -158,6 +167,8 @@ export default {
   },
 }
 </script>
+
+
 
 <style scoped>
 .activity-number {
