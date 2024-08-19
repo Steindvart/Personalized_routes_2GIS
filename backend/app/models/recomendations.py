@@ -1,3 +1,4 @@
+import difflib
 import random
 from ..schemas import CurrentPreferences, Activities
 from ..schemas.currect_preferences import CurrentPreferences, Activities
@@ -5,8 +6,11 @@ from ..schemas.global_preferences import GlobalPreferenceSimple
 from ..schemas.journey import Journey, JourneyPlace, JourneyPlaceType
 from ..utils.gis_api import GisPoint, PlaceType, main_gis_api
 
+
 RADIUS_DEFAULT: int = 1000
 RADIUS_LIMIT: int = 5000
+
+from typing import List, Dict, Optional
 
 class RecommendationsEngine:
   def __init__(self, global_pref: GlobalPreferenceSimple, curr_pref: CurrentPreferences):
@@ -27,7 +31,6 @@ class RecommendationsEngine:
       ]
     )
 
-    # Создаем набор для уникальных мест
     unique_place_ids = set()
 
     for activity in self.curr_pref.activities:
@@ -53,7 +56,7 @@ class RecommendationsEngine:
         search: str = f'{category}'
 
       radius = RADIUS_DEFAULT
-      places: list[dict] | None = None
+      places: list[dict] = []
 
       while radius <= RADIUS_LIMIT:
         if activity != Activities.walk:
@@ -81,7 +84,6 @@ class RecommendationsEngine:
         journey_place: JourneyPlace = JourneyPlace.from_dict(place, journey_place_type)
         journey.places.append(journey_place)
 
-        # Добавляем id места в набор уникальных мест
         unique_place_ids.add(selected_place['id'])
 
     return journey

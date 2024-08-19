@@ -103,6 +103,41 @@ class GisApi:
       'items.point', 'items.address', 'items.description'
     ]
 
+  def get_place(self, place_id: int, additional_info: bool = False) -> Optional[dict]:
+    endpoint = f'{PLACES_API_ENDPOINT}/byid'
+
+    params = {
+      'id': place_id,
+    }
+
+    if additional_info:
+      params['fields'] = ','.join(self._get_additional_fields_list())
+
+    items = self._get_catalog_all_items(endpoint, params)
+    if not items:
+      return None
+
+    return items[0]
+
+  def format_place_response(self, place: dict) -> dict:
+    """Отформатировать ответ, исключая ненужные поля."""
+    formatted_place = {
+        'id': place.get('id'),
+        'name': place.get('name'),
+        'address': place.get('full_address_name'),
+        'rating': place.get('reviews', {}).get('rating'),
+        'point': place.get('point')
+    }
+    return formatted_place
+
+  def get_place_info(self, place_id: int) -> Optional[dict]:
+    """Получить отформатированную информацию о месте/заведении по его ID."""
+    place = self.get_place(place_id, True)
+    if not place:
+        return None
+
+    return self.format_place_response(place)
+
   # ----- Getting city ------
   def get_city_id(self, city: str) -> Optional[int]:
     """Получить ID города по его названию."""

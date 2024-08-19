@@ -12,6 +12,12 @@ from ..schemas.global_preferences import GlobalPreferenceSimple, single_preferen
 
 from ..db import get_db
 
+user_selected_places = {
+    "food": "70000001017381379",
+    "fun": "70000001081855851",
+    "walk": "70000001027445760"
+}
+
 router = APIRouter()
 router.include_router(mock_router, prefix="/mock", tags=["mock"])
 router.include_router(users_router, prefix="/users", tags=["users"])

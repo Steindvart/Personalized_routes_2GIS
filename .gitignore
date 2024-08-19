@@ -1,6 +1,6 @@
-# local env
+# Local env
 .vscode/
-.idea/
+.idea
 
 # Virtual environment
 .venv/
