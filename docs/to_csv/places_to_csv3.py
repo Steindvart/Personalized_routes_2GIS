@@ -28,12 +28,10 @@ def write_to_csv(data, filename):
             writer.writerow([item['id'], item['name'], item['address_name'], rating,rubrics, context])
 
 def main():
-    api_key = "013f41f3-bf5c-45e6-b9ad-91037a03cb13" # demo2
-    # api_key = "333f2738-8ebc-482c-8f34-d438836ca445" # demo1 заблокирован
-    # api_key = "7c46258b-abf1-4770-bfe2-3098a9f90da0" # prod заблокирован
+    api_key = ""
     rubric_ids = [165]
     # rubric_ids = [161, 165, 112658] # нельзя несколько рубрик запускать, блокируют ключи
-    
+
     # Создаем или очищаем CSV файл
     with open('results.csv', mode='w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
@@ -49,9 +47,9 @@ def main():
 
             if not items:
                 break  # Выходим из цикла, если нет данных
-            
+
             write_to_csv(items, 'results.csv')  # Записываем данные в CSV файл
-            
+
             if page >= max_page:
                 break  # Если текущая страница больше или равна максимальной, выходим из цикла
 

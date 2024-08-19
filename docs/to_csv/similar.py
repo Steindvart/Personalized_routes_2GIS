@@ -1,6 +1,5 @@
 import pandas as pd
 import difflib
-import json
 
 RUBRIC_ID = 161
 input_file = str(RUBRIC_ID) + '_data.csv'
@@ -15,33 +14,33 @@ def find_similar(row):
     rating = row['Rating']
     rubric = row['Rubric']
     context = row['Context']
-    
+
     # Поиск остальных строк
     similar_row = None
     max_similarity = -1
-    
+
     for _, candidate in df.iterrows():
         # Игнорируем саму строку
         if candidate['ID'] == row['ID'] or candidate['Name'] == row['Name']:
             continue
-        
+
         # Сравнения по рейтингам
         rating_difference = abs(candidate['Rating'] - rating)
-        
+
         # Сравнение рубрик
         rubric_similarity = difflib.SequenceMatcher(None, rubric, candidate['Rubric']).ratio()
-        
+
         # Сравнение контекстов
         context_similarity = difflib.SequenceMatcher(None, context, candidate['Context']).ratio()
-        
+
         # Веса для каждого условия (можно настроить)
         total_similarity = (1 / (1 + rating_difference)) + rubric_similarity + context_similarity
-        
+
         # Сравниваем с максимальным
         if total_similarity > max_similarity:
             max_similarity = total_similarity
             similar_row = candidate
-    
+
     return similar_row
 
 # Создание нового DataFrame для результатов
