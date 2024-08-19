@@ -1,10 +1,11 @@
-import difflib
 import random
+
 from ..schemas import CurrentPreferences, Activities
 from ..schemas.currect_preferences import CurrentPreferences, Activities
 from ..schemas.global_preferences import GlobalPreferenceSimple
 from ..schemas.journey import Journey, JourneyPlace, JourneyPlaceType
-from ..utils.gis_api import GisPoint, PlaceType, main_gis_api
+
+from ..utils.gis_api import GisPoint, main_gis_api
 
 
 RADIUS_DEFAULT: int = 1000
